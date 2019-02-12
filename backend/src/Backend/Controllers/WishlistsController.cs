@@ -158,6 +158,7 @@ namespace Citolab.QConstruction.Backend.Controllers
         /// <param name="file">The QTI package</param>
         /// <returns></returns>
         [HttpPost("{id}/FillWishlist")]
+        [RequestSizeLimit(10_000_000)]
         public async Task<IActionResult> FillWishlist(Guid id, ICollection<IFormFile> file)
         {
             var wishlist = _wishlistRepository.GetAsync(id).Result;

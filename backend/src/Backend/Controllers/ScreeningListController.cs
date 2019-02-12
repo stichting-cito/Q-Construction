@@ -68,6 +68,7 @@ namespace Citolab.QConstruction.Backend.Controllers
         /// <param name="file"></param>
         /// <returns></returns>
         [HttpPost("{id}/FillScreeningList")]
+        [RequestSizeLimit(10_000_000)]
         public async Task<IActionResult> FillScreeningList(Guid id, ICollection<IFormFile> file)
         {
             var screeninglist = _screeningListRepository.GetAsync(id).Result;
