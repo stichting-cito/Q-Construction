@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-7" [class.col-xs-12]='item.itemStatus==0'>
+        <div class="btn-toolbar" role="toolbar" aria-label="..." style="margin-bottom:15px">
+            <button class="btn btn-info" (click)="file()" [disabled]="!isValid">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ 'BUTTON_CO_SUBMIT' | translate}}
+            </button>
+            <button class="btn btn-warning pull-right" (click)="delete()">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="form-group">
+            <div class="form-control">
+                 <p><strong>Code: {{ item.uniqueCode }} </strong></p>
+                <p><strong>{{ item.domainTitle }}</strong>: {{ item.learningObjectiveTitle }}</p>
+            </div>
+        </div>
+        <app-edit-item (formValidChanged)="onFormValidChanged($event)" [readonly]="false" [item]="item" [disabledItemTypes]="disabledItemTypes" (itemChanged)="save()"></app-edit-item>
+    </div>
+    <div class="col-sm-5" [class.hidden-xs]='item.itemStatus==0'>
+        <app-edit-notes [readonly]="false" [item]="item" (notesChanged)="save()"></app-edit-notes>
+        <app-item-screening *ngIf='item && item.itemStatus>0 && screening' [screening]="screening" [readonly]="true" [item]="item" (itemChanged)="save()"></app-item-screening>
+        <app-construction-tips [type]="0"></app-construction-tips>
+        <app-construction-tips [type]="1"></app-construction-tips>
+    </div>
+</div>

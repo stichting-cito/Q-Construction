@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row row-eq-height">
+        <div class="col-xs-6 col-sm-6 col-white">
+            <div *ngIf="deletes" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="deletes = false">×</button>
+                <p>{{ 'ALERT_SURE_REJECT' | translate }}</p>
+                <p><a class="btn btn-danger" (click)="decline()">{{ 'BUTTON_OK' | translate }}</a> <a class="btn btn-link" (click)="deletes = false">{{ 'BUTTON_CANCEL' | translate }}</a></p>
+            </div>
+            <div class="btn-toolbar" role="toolbar" aria-label="..." style="margin-bottom:15px">
+
+                <div class="btn-group" role="group" aria-label="...">
+                    <a (click)="location.back()" class="btn btn-info">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="btn-group pull-right" role="group" aria-label="..." *ngIf="item.itemStatus == 1 || item.itemStatus == 2">
+                    <button class="btn btn-warning pull-right" (click)="deletes = true">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+            <p><strong>[{{ item.uniqueCode }}] {{ item.domainTitle | translate }}</strong>: {{  item.learningObjectiveTitle }}</p>
+            <app-edit-item [readonly]="true" [item]="item"></app-edit-item>
+            <button *ngIf="item.itemStatus == 1 || item.itemStatus == 2" class="btn btn-info btn-block" (click)="file()">
+                {{fileButtonText | async}}
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-white">
+            <app-edit-notes [readonly]="true" [item]="item"></app-edit-notes>
+            <app-item-screening *ngIf='item && screening' [readonly]="!(item.itemStatus == 1 || item.itemStatus == 2)" (feedbackchanged)="feedbackChanged($event);"
+                [item]="item" [screening]="screening"></app-item-screening>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" ?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" identifier="@Model.Id" title="@Model.Title" layoutTemplateSrc="BO.Hotspot.SC">
+    <solution>
+        <keyFindings>
+            <keyFinding id="hotspotController" scoringMethod="Dichotomous" />
+        </keyFindings>
+        <aspectReferences />
+        <ItemScoreTranslationTable>
+            <ItemScoreTranslationTableEntry rawScore="0" translatedScore="0" />
+            <ItemScoreTranslationTableEntry rawScore="1" translatedScore="1" />
+        </ItemScoreTranslationTable>
+    </solution>
+    <parameters>
+        <parameterSet id="entireItem">
+            <plaintextparameter name="facetScoringConverter">Cito.Tester.PlugIns.Interaction.Combined.CombinedInteractionController</plaintextparameter>
+            <booleanparameter name="dualColumnLayout">False</booleanparameter>
+            <texttospeechparameter name="textToSpeechLeft" />
+            <texttospeechparameter name="textToSpeechRight" />
+            <xhtmlparameter name="leftBody" />
+            <xhtmlresourceparameter name="leftSource" />
+            <integerparameter name="sourceHeight">200</integerparameter>
+            <xhtmlparameter name="itemBody" />
+            <xhtmlparameter name="itemQuestion">
+                @Html.Raw(Model.BodyText)
+            </xhtmlparameter>
+            <areaparameter name="area">
+                <definition id="">
+                    <resourceparameter name="clickableImage" />
+                </definition>
+                <Shapes />
+            </areaparameter>
+            <hotspotScoringParameter name="hotspotScoring" ControllerId="hotspotController" findingOverride="hotspotController" minChoices="1" maxChoices="1">
+                <definition id="" />
+                <areaparameter name="clickableArea">
+                    <subparameterset id="A">
+                        <resourceparameter name="clickableImage">@Model.Image</resourceparameter>
+                        <resourceparameter name="freeForms" />
+                    </subparameterset>
+                    <definition id="">
+                        <resourceparameter name="clickableImage" />
+                        <resourceparameter name="freeForms" />
+                    </definition>
+                    <Shapes />
+                </areaparameter>
+            </hotspotScoringParameter>
+            <integerparameter name="minSelectableAlternatives">1</integerparameter>
+            <integerparameter name="maxSelectableAlternatives">1</integerparameter>
+            <xhtmlparameter name="itemGeneral">
+                @foreach (var key in Model.Keys)
+                {
+                    @Html.Raw(key)
+                }
+            </xhtmlparameter>
+        </parameterSet>
+        <parameterSet id="itemtools">
+            <collectionparameter name="attachments">
+                <definition id="">
+                    <resourceparameter name="document" />
+                    <plaintextparameter name="title" />
+                </definition>
+            </collectionparameter>
+            <booleanparameter name="showCalculatorButton" />
+            <listedparameter name="calculatorMode">basic</listedparameter>
+        </parameterSet>
+    </parameters>
+</assessmentItem>

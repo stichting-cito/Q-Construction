@@ -1,0 +1,50 @@
+<div bsModal #userModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="export modal"
+ aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title pull-left">{{header}}</h4>
+				<button type="button" class="close pull-right" (click)="userModal.hide()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="content" style="margin: 10px; height: 400px;" *ngIf="existingUser">
+					<div class="row" style="margin:0" *ngIf="usersNoPermission && usersNoPermission.length > 0">
+						<div class="panel panel-default" style="overflow-y: scroll; height:300px; width: auto;">
+							<div class="panel-heading">{{ 'SELECT_USERS' | translate }}</div>
+							<div class="panel-body">
+								<div *ngFor="let user of usersNoPermission;" class="list-group-item">
+									<input id="checkbox1" type="checkbox" (change)="toggleAddUser($event, user)">
+									<label for="checkbox1" style="margin-left: 20px;">
+										{{ user.name }} - {{ user.email}}
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="display:flex; justify-content: flex-end" *ngIf="usersNoPermission && usersNoPermission.length > 0">
+							<button [disabled]="this.selectedUsers.length === 0" class="btn btn-primary btn-block" style="width:auto;margin-right: 15px;"
+							 (click)="addUser()">{{ 'BUTTON_ADD' |
+								translate}}</button>
+						</div>
+					</div>
+					<p *ngIf="usersNoPermission.length == 0">{{ 'NO_USERS' | translate}}</p>
+				</div>
+				<div class="content" style="margin: 10px; height: 200px;" *ngIf="!existingUser">
+					<form novalidate (ngSubmit)="onSubmit()" #userForm="ngForm" style="margin-top:20px;">
+						<div class="row" style="margin:10px;">
+							<div><input class="form-control" name="email" #email="ngModel" required style="margin:3px;" type="email"
+								 [(ngModel)]="newUser.email" placeholder="email"></div>
+							<div><input class="form-control" name="password" #password="ngModel" required style="margin:3px;" type="text"
+								 [(ngModel)]="newUser.password" placeholder="password"></div>
+							<div><input class="form-control" name="name" #name="ngModel" required style="margin:3px;" type="text"
+								 [(ngModel)]="newUser.name" placeholder="name"></div>
+							<div><button class="btn btn-primary btn-block pull-right" [disabled]="(!userForm.form.valid)" style="width: auto; margin:20px 0;">{{
+									'BUTTON_ADDNEW' | translate}}</button></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<form novalidate [formGroup]="form" *ngIf="!readonly">
+    <div class="form-group question">
+        <app-quill-editor [imageHandler]="imageHandler" class="form-control input-lg" mode="simple" toggleToolbar="true" formControlName="question"
+            placeholder="{{'PLACEHOLDER_ITEMBODY' | translate}}">
+        </app-quill-editor>
+    </div>
+
+    <div formArrayName="simpleChoices" [sortablejs]="simpleChoicesFormArray" [sortablejsOptions]="sortoptions">
+        <div *ngFor="let item of simpleChoicesFormArray.controls; let i = index;" [formGroupName]="i" class="form-group" style="margin-right:20px;">
+            <div class="input-group">
+
+                <div class="input-group-addon">
+                    <input *ngIf="!multiple" type="radio" name="key" (change)="setRadio(i)" [checked]="simpleChoicesFormArray.controls[i].get('key').value" tabindex="-1">
+                    <input *ngIf="multiple" type="checkbox" name="key" formControlName="key" tabindex="-1">
+                </div>
+
+                <app-quill-editor class="form-control" mode="simple" [imageHandler]="imageHandler" toggleToolbar="true" formControlName="title"
+                    placeholder="{{'PLACEHOLDER_DISCTRACTOR' | translate}}"></app-quill-editor>
+
+                <div class="input-group-addon">
+                    <button class="btn btn-link handle">
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button class="btn btn-link" (click)="sortRandom()">
+                    <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+                </button>
+                <button class="btn btn-link" (click)="sortAlpha()">
+                    <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                </button>
+                <button class="btn btn-link" *ngIf="simpleChoicesFormArray.length < 4" (click)="simpleChoices.push(addSimpleChoice())">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <button *ngIf="simpleChoicesFormArray.length == 4" class="btn btn-link" (click)="simpleChoicesFormArray.removeAt(3)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div *ngIf="readonly" class="readonlyitem">
+    <div class="form-group question">
+        <app-htmlviewer class="form-control input-lg" [innerHTML]="item.bodyText"></app-htmlviewer>
+    </div>
+
+    <div *ngFor="let sc of item.simpleChoices; let i = index;" class="form-group">
+        <div class="input-group">
+
+            <div class="input-group-addon">
+                <input *ngIf="!multiple" type="radio" name="key" [disabled]="true" [checked]="sc.isKey">
+                <input *ngIf="multiple" type="checkbox" name="key" [disabled]="true" [checked]="sc.isKey">
+            </div>
+
+            <app-htmlviewer class="form-control" [innerHTML]="sc.title"></app-htmlviewer>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+    <form [formGroup]="this['editItemForm']" *ngIf="!this['readonly']">
+        <div class="form-group question">
+            <app-quill-editor [imageHandler]="this['imageHandler']" class="form-control input-lg" mode="simple" toggleToolbar="true" formControlName="bodyText"
+                placeholder="{{'PLACEHOLDER_ITEMBODY' | translate}}">
+            </app-quill-editor>
+        </div>
+
+        <div class="form-group">
+            <app-quill-editor class="form-control" toggleToolbar="true" [imageHandler]="this['imageHandler']"
+            formControlName="key" placeholder="{{'PLACEHOLDER_KEY' | translate}}" mode="simple">
+            </app-quill-editor>
+        </div>
+
+    </form>
+
+    <div *ngIf="this['readonly']" class="readonlyitem">
+        <div class="form-group question">
+            <app-htmlviewer class="form-control input-lg" [innerHTML]="item.bodyText"></app-htmlviewer>
+        </div>
+
+        <div class="form-group">
+            <app-htmlviewer class="form-control" [innerHTML]="item.key"></app-htmlviewer>
+        </div>
+    </div>

@@ -1,0 +1,25 @@
+Category;Code;Title;Type
+The content;L1;Not a good operationalization of the learning objective.;
+The content;L2;Addresses multiple topics.;
+The content;L3;Asks for an opinion (for example with the verb 'can').;
+The content;L4;Offensive or inappropriate content.;
+Wording of the question;F1;Spelling and / or grammatical errors.;
+Wording of the question;F2;Sentence construction could be simpler.;
+Wording of the question;F3;Multiple interpretations possible.;
+Wording of the question;F4;No question form or imperative.;
+Wording of the question;F5;Negative or double negative questions.;
+Wording of the question;F6;Abbreviations, quotes and parentheses.;
+Wording of the question;F7;Language is inappropriate for audience.;
+Alternatives;M1;The key is incorrect and / or incomplete.;MC
+Alternatives;M2;Distractor is not plausible.;MC
+Alternatives;M3;Multiple answers are (partly) correct.;MC
+Alternatives;M4;Key differs too much from the distractors.;MC
+Alternatives;M5;Alternatives do not fit grammatically.;MC
+Alternatives;M6;Vague or absolute language.;MC
+Alternatives;M7;Unnecessary repetition of text.;MC
+Alternatives;M8;Alternatives contain key words from the question.;SA
+Answer of open ended question;O1;Key is incorrect and / or incomplete.;SA
+Answer of open ended question;O2;Answer cannot be scored automatically.;SA
+Answer of open ended question;O3;Lenght of the desired answer is unclear.;SA
+Answer of open ended question;O4;Formulation of the key does not fit the question.;SA
+Other …;;;

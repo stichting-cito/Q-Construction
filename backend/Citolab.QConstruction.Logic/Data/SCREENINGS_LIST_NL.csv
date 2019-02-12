@@ -1,0 +1,25 @@
+Category;Code;Title;Type
+Inhoud van de vraag;L1;Geen goede operationalisatie van het leerdoel.;
+Inhoud van de vraag;L2;Bevraagt meerdere onderwerpen.;
+Inhoud van de vraag;L3;Vraagt naar de mening (bijvoorbeeld door 'kunnen').;
+Inhoud van de vraag;L4;Kwetsende of ongepaste inhoud.;
+Formulering van de vraag.;F1;Spel- en/of grammaticafouten.;
+Formulering van de vraag.;F2;Zinsconstructie kan eenvoudiger.;
+Formulering van de vraag.;F3;Meerdere interpretaties mogelijk.;
+Formulering van de vraag.;F4;Geen vraagvorm of gebiedende wijs.;
+Formulering van de vraag.;F5;Negatieve vraagstelling of dubbele ontkenning.;
+Formulering van de vraag.;F6;Afkortingen, aanhalingstekens en haakjes.;
+Formulering van de vraag.;F7;Taalgebruik is ongeschikt voor doelgroep.;
+Antwoorden van meerkeuzevragen.;M1;De sleutel is onjuist en/of onvolledig.;MC
+Antwoorden van meerkeuzevragen.;M2;Afleider niet plausibel.;MC
+Antwoorden van meerkeuzevragen.;M3;Meerdere antwoorden(gedeeltelijk) goed.;MC
+Antwoorden van meerkeuzevragen.;M4;Sleutel verschilt te veel van de afleiders.;MC
+Antwoorden van meerkeuzevragen.;M5;Alternatieven sluiten grammaticaal niet aan.;MC
+Antwoorden van meerkeuzevragen.;M6;Vaag of absoluut taalgebruik.;MC
+Antwoorden van meerkeuzevragen.;M7;Onnodige herhaling van tekst.;MC
+Antwoorden van meerkeuzevragen.;M8;Alternatieven met kernwoorden uit de vraag.;MC
+Antwoord van open vragen.;O1;Sleutel is onjuist en/of onvolledig.;SA
+Antwoord van open vragen.;O2;Niet automatisch scoorbaar.;SA
+Antwoord van open vragen.;O3;Lengte van het antwoord onduidelijk.;SA
+Antwoord van open vragen.;O4;Sleutel sluit niet aan bij de vraagstelling.;SA
+Overige, namelijk …;;;

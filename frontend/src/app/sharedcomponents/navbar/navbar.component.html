@@ -1,0 +1,70 @@
+<nav role="navigation" class="navbar">
+	<div class="container-fluid" [ngClass]="{'FullWidth': isManager }">
+		<!-- Title -->
+		<div class="navbar-header pull-left">
+			<a class="navbar-brand" [routerLink]="[routeDashboard]">
+				<img src="../../assets/CitolabLogo256.png" width="32" height="32" />
+			</a>
+		</div>
+
+		<!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
+		<div class="navbar-header pull-right">
+			<ul class="nav pull-left" *ngIf="userService.user">
+				<!-- This works well for static text, like a username -->
+				<li class="navbar-text pull-left">{{ username }}</li>
+				<li class="navbar-text pull-left hidden-xs">
+					<span class="dropdown pull-right" dropdown>
+						<a style="margin-top: 5px;" class="dropdown-toggle"  dropdownToggle>
+							<span *ngIf="userService.user.selectedWishlist">{{ userService.user.selectedWishlist.value }}<b class="caret"></b></span>
+							<span *ngIf="!userService.user.selectedWishlist">{{ 'NO_WISHLIST' | translate }}<b class="caret"></b></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li *ngFor="let wl of userService.user.allowedWishlists; let idx = index">
+								<a (click)="changeWishlist(wl)">{{ wl.value }}</a>
+							</li>
+							<li><a *ngIf="isManager" (click)="addWishlist(template)">{{ 'BUTTON_ADDNEW' | translate }}</a></li>
+						</ul>
+					</span>
+				</li>
+				<!-- Add any additional bootstrap header items.  This is a drop-down from an icon -->
+				<li class="navbar-text pull-right">
+					<span class="dropdown pull-right" dropdown>
+						<a style="margin-top: 5px;" class="dropdown-toggle" dropdownToggle>
+							<span class="glyphicon glyphicon-user"></span><b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a (click)='toggleLanguage()'>{{'TOGGLE_LANGUAGE' | translate }}</a>
+								<a (click)="logout()"> {{ 'BUTTON_LOGOUT' | translate }}</a>
+							</li>
+						</ul>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<!--- DIALOG TO ADD WISHLIST -->
+		<ng-template #template>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{{ 'ADD_WISHLIST' | translate}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form novalidate (ngSubmit)="onSubmit()" id="ngForm" #wishlistForm="ngForm">
+							<input class="form-control" name="title" #title="ngModel" required type="text" [(ngModel)]="newWishlist.title"
+							 placeholder="title">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit"  form="ngForm" class="btn btn-primary" [disabled]="(!wishlistForm.form.valid)">{{
+							'BUTTON_ADD' | translate }}</button>
+						<button type="button" class="btn btn-secondary" (click)="modalRef.hide()" data-dismiss="modal">{{ 'BUTTON_CANCEL' | translate}}</button>
+					</div>
+				</div>
+			</div>
+		</ng-template>
+	</div>
+</nav>

@@ -1,0 +1,62 @@
+<div *ngIf="!wishlistHasItems" style="padding:15px">
+    {{'NO_STATS' | translate}}
+</div>
+<div *ngIf="wishlistHasItems" style="padding:15px">
+    <!-- ROW1 -->
+    <div class="row">
+        <!-- Deleted per domain -->
+        <div class="col-lg-3">
+
+            <p style="text-align:center"></p>
+            <p-chart id="removedData" type="doughnut" [data]="removedData" [options]="removedDataOptions"></p-chart>
+        </div>
+        <div class="col-lg-2">
+            <div class="panel panel-warning" *ngFor="let round of roundsPerDomain;">
+                <div class="panel-heading" style="padding-bottom:20px;">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-repeat fa-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div style="font-size:20px;">{{round.count}}</div>
+                            <div>{{round.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel" style="height: 300px;">
+                <div class="panel-body" style="padding-bottom:5px;">
+                    <p-dropdown [options]="constructorsFeedback" [filter]="true" [style]="{'width':'400px'}" [(ngModel)]="selectedConstructorForTopFeedback"
+                        (ngModelChange)="onConstructorChange($event)">
+                        <ng-template let-constructor>
+                            <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                <img [src]="constructor.value.image" style="width:24px;position:absolute;top:1px;left:5px" />
+                                <div style="font-size:14px;float:right;margin-top:4px">{{constructor.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                    <p-dataList [value]="topFeedback" [paginator]="false" [rows]="5">
+                        <ng-template let-feedback pTemplate="item">
+                            <div class="ui-grid-row" style="padding:10px;">
+                                <div class="col-lg-10">{{feedback.name}}</div>
+                                <div class="col-lg-2">{{feedback.count}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dataList>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ROW2 -->
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="panel">
+                <div class="panel-body" style="padding-bottom:5px;">
+                    <p-chart [style]="{'height':'400px'}" type="line" [(data)]="testExpertFeedbackData"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

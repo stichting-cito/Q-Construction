@@ -1,0 +1,32 @@
+<form [formGroup]="screenItemForm" *ngIf="!readonly">
+    <p class="pull-right" style="color:#999999">{{ saveTime }}</p>
+    <div *ngFor="let c of screeningCategories">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h2 class="panel-title">{{ c | translate }}</h2>
+            </div>
+            <div class="list-group" *ngIf="!readonly">
+                <a *ngFor="let s of screeningList | filter:[{category: c}]" (click)="selectScreeningsItem(s)" [class.selected]="screening == s"
+                    class="list-group-item" [class.list-group-item-warning]="getFeedback(s.id) != ''">
+                {{s.value | translate}}
+                <div [hidden]="(readonly && getFeedback(s.id) == '') || (!readonly && selectedscreening != s)">
+                    <textarea  #fb appAutosize noresize (keyup)="setFeedback(s.id, fb.value)">{{ getFeedback(s.id) }}</textarea>
+                </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="readonly">
+    <div *ngFor="let c of screeningCategories">
+        <div class="screeningbubble" *ngFor="let s of screeningListWithFeedback | filter:[{category: c}]">
+            <strong>{{s.value | translate}}</strong>
+            <div *ngIf="getFeedback(s.id) != ''" [innerHTML]="getFeedback(s.id) | newline">
+            </div>
+        </div>
+    </div>
+</div>

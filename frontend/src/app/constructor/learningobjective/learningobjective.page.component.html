@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h4>{{ 'WHICH_LEARNINGOBJECTIVE' | translate }}</h4>
+        <div class="panel panel-info" *ngFor="let domainHeader of domainHeaders" style="cursor:pointer;">
+            <div class="panel-heading" (click)="toggleCollapse(domainHeader)">
+                <h3 class="panel-title">{{domainHeader.name}}
+                    <i class="pull-right" [ngClass]="domainHeader.collapsed ? 'fa fa-caret-right' : 'fa fa-caret-down'" aria-hidden="true"></i>
+                </h3>
+            </div>
+            <ng-container *ngIf="!domainHeader.collapsed">
+                <div class="list-group" *ngFor="let learningObjective of learningObjectiveList | filter:[{domainTitle: domainHeader.name}]; let idx = index">
+                    <a (click)="createItem(learningObjective.id, learningObjective.wishlistId)" class="list-group-item">
+                        <span class="badge badge-primary pull-left">{{learningObjective.total - learningObjective.createdCount}}</span>&nbsp;
+                        {{learningObjective.code}}: &nbsp; {{ learningObjective.title }}
+                        <span class="pull-right" style="color:#aaaaaa;font-size:11px;">
+            <span class="glyphicon glyphicon-time"></span> {{ learningObjective.deadline | datetimecsharp
+                        | daysleft }} {{'DAYS' | translate }}
+                        </span>
+                    </a>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

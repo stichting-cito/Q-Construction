@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" ?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" identifier="@Model.Id" title="@Model.Title" layoutTemplateSrc="BO.GraphicGapMatch.SC">
+    <solution>
+        <keyFindings>
+            <keyFinding id="gapMatchController" scoringMethod="Dichotomous" />
+        </keyFindings>
+        <aspectReferences />
+        <ItemScoreTranslationTable>
+            <ItemScoreTranslationTableEntry rawScore="0" translatedScore="0" />
+            <ItemScoreTranslationTableEntry rawScore="1" translatedScore="1" />
+        </ItemScoreTranslationTable>
+    </solution>
+    <parameters>
+        <parameterSet id="entireItem">
+            <booleanparameter name="dualColumnLayout">False</booleanparameter>
+            <booleanparameter name="isCategorizationItem">False</booleanparameter>
+            <texttospeechparameter name="textToSpeechLeft" />
+            <texttospeechparameter name="textToSpeechRight" />
+            <xhtmlparameter name="leftBody" />
+            <xhtmlresourceparameter name="leftSource" />
+            <integerparameter name="sourceHeight">550</integerparameter>
+            <xhtmlparameter name="itemBody" />
+            <xhtmlparameter name="itemQuestion">
+                @Html.Raw(Model.BodyText)
+            </xhtmlparameter>
+            <graphGapMatchScoringParameter name="graphicGapMatchScoring" ControllerId="gapMatchController" findingOverride="gapMatchController" iscategorizationvariant="false">
+                <subparameterset id="A">
+                    <gapImageParameter name="alternative" height="15" width="100" matchMax="1" contentType="Text" enteredText="no image available" />
+                </subparameterset>
+                <definition id="">
+                    <gapImageParameter name="alternative" height="0" width="0" matchMax="1" contentType="Image" />
+                </definition>
+                <areaparameter name="itemQuestionArea">
+                    <subparameterset id="A">
+                        <resourceparameter name="clickableImage">@Model.Image</resourceparameter>
+                    </subparameterset>
+                    <definition id="">
+                        <resourceparameter name="clickableImage" />
+                    </definition>
+                    <Shapes />
+                </areaparameter>
+            </graphGapMatchScoringParameter>
+            <integerparameter name="percentageTransparency">0</integerparameter>
+            <xhtmlparameter name="itemGeneral">
+                @foreach (var key in Model.Keys)
+            {
+                    @Html.Raw(key)
+                }
+            </xhtmlparameter>
+        </parameterSet>
+        <parameterSet id="itemtools">
+            <collectionparameter name="attachments">
+                <definition id="">
+                    <resourceparameter name="document" />
+                    <plaintextparameter name="title" />
+                </definition>
+            </collectionparameter>
+            <booleanparameter name="showCalculatorButton" />
+            <listedparameter name="calculatorMode">basic</listedparameter>
+        </parameterSet>
+    </parameters>
+</assessmentItem>

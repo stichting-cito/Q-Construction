@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-left row-eq-height" [class.active]='showsidebar'>
+
+        <div class="col-xs-6 col-sm-3 col-lg-2 col-dark sidebar-offcanvas" id="sidebar">
+            <div class="list-group">
+                <button type="button" class="btn btn-info btn-block" style="margin-bottom:15px; height:80px;" (click)="newItem()">{{ 'BUTTON_NEW' | translate}}</button>
+                <a [ngClass]="{'active': selectedState == 0}" (click)="getItemsByState(0)" class="list-group-item"><span class="glyphicon glyphicon-file hidden-xs">&nbsp;</span><span class="badge">{{getCountByState(0, false)}}</span>{{ 'MENUITEM_CO_DRAFT' | translate}}</a>
+                <a [ngClass]="{'active': selectedState == 3}" (click)="getItemsByState(3)" class="list-group-item"><span class="glyphicon glyphicon-pencil hidden-xs">&nbsp;</span><span class="badge" [class.badge-danger]="getCountByState(3, false) > 0">{{getCountByState(3, false)}}</span>{{ 'MENUITEM_CO_NEEDSWORK' | translate}}</a>
+                <a [ngClass]="{'active': selectedState == 1}" (click)="getItemsByState(1)" class="list-group-item"><span class="glyphicon glyphicon-eye-open hidden-xs">&nbsp;</span><span class="badge">{{getCountByState(1, false)}}</span>{{ 'MENUITEM_CO_INREVIEW' | translate}}</a>
+                <a [ngClass]="{'active': selectedState == 4}" (click)="getItemsByState(4)" class="list-group-item"><span class="glyphicon glyphicon-ok hidden-xs">&nbsp;</span><span class="badge">{{getCountByState(4, false)}}</span>{{ 'MENUITEM_CO_ACCEPTED' | translate}}</a>
+                <a [ngClass]="{'active': selectedState == 5}" (click)="getItemsByState(5)" class="list-group-item"><span class="glyphicon glyphicon-remove hidden-xs">&nbsp;</span><span class="badge">{{getCountByState(5, false)}}</span>{{ 'MENUITEM_CO_REJECTED' | translate}}</a>
+                <a [ngClass]="{'active': selectedState == 6}" (click)="getItemsByState(6)" class="list-group-item"><span class="glyphicon glyphicon-trash hidden-xs">&nbsp;</span><span class="badge">{{getCountByState(6, false)}}</span>{{ 'MENUITEM_CO_DELETED' | translate}}</a>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-offset-3 col-sm-9 col-lg-offset-2 col-lg-8 col-white" >
+            <button type="button" (click)='toggleSidebar()' class="btn btn-info visible-xs offcanvastoggle" data-toggle="offcanvas" style="margin-bottom:15px">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <router-outlet></router-outlet>
+        </div>
+
+        <div class="hidden-sm hidden-md col-lg-3" >
+        </div>
+    </div>
+</div>

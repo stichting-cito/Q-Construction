@@ -1,0 +1,68 @@
+<ng-container *ngIf="dashboardData">
+    <div style="padding:15px">
+        <app-admin-usersdialog [header]="'MD_MANAGERS' | translate" #managerModal [userType]="3" (usersAdded)="managersAdded($event)"
+            [(usersNoPermission)]="managersNotAssigned">
+        </app-admin-usersdialog>
+        <app-admin-usersdialog #testExpertModal [header]="'MD_TESTEXPERTS' | translate" [userType]="2" (usersAdded)="testExpertsAdded($event)"
+            [(usersNoPermission)]="testExpertsNotAssigned">
+        </app-admin-usersdialog>
+        <app-admin-usersdialog [header]="'MD_CONSTRUCTORS' | translate" #constuctorModal [userType]="1" (usersAdded)="constructorsAdded($event)"
+            [(usersNoPermission)]="constructorsNotAssigned">
+        </app-admin-usersdialog>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{'MD_MANAGERS' | translate}}</div>
+            <!-- List group -->
+            <ul class="list-group">
+                <li *ngFor="let manager of managers;" class="list-group-item">
+                    {{ manager.name }}
+                    <a class="pull-right"><i class="fa fa-ban" aria-hidden="true" (click)="removePermission(manager)"></i></a>
+                </li>
+            </ul>
+            <div class="panel-footer" style="display: flex;   justify-content: flex-end;">
+                <button style="margin: 3px;width: auto;" type="button" class="btn btn-block btn-primary" (click)="existingManager()">{{
+                    'BUTTON_NEW_EXISTING_USER' | translate}}</button>
+                <button style="margin: 3px; width: auto;" type="button" class="btn btn-block btn-primary" (click)="newManager()">{{
+                    'BUTTON_NEW_USER' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{'MD_TESTEXPERTS' | translate}}</div>
+            <!-- List group -->
+            <ul class="list-group">
+                <li *ngFor="let testexpert of testExperts;" class="list-group-item">
+                    {{ testexpert.name }}
+                    <a class="pull-right"><i class="fa fa-ban" aria-hidden="true" (click)="removePermission(testexpert)"></i></a>
+                </li>
+            </ul>
+            <div class="panel-footer" style="display: flex;   justify-content: flex-end;">
+                <button style="margin: 3px;width: auto;" type="button" class="btn btn-block btn-primary" (click)="existingTestExpert()">{{
+                    'BUTTON_NEW_EXISTING_USER' | translate}}</button>
+                <button style="margin: 3px; width: auto;" type="button" class="btn btn-block btn-primary" (click)="newTestExpert()">{{
+                    'BUTTON_NEW_USER' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{'MD_CONSTRUCTORS' | translate}}</div>
+            <!-- List group -->
+            <ul class="list-group">
+                <li *ngFor="let constructor of constructors;" class="list-group-item">
+                    {{ constructor.name }}
+                    <a class="pull-right"><i class="fa fa-ban" aria-hidden="true" (click)="removePermission(constructor)"></i></a>
+                </li>
+            </ul>
+            <div class="panel-footer" style="display: flex; justify-content: flex-end;">
+                <button style="margin: 3px;width: auto;" type="button" class="btn btn-block btn-primary" (click)="existingConstructor()">{{
+                    'BUTTON_NEW_EXISTING_USER' | translate}}</button>
+                <button style="margin: 3px;width: auto;" type="button" class="btn btn-block btn-primary" (click)="newConstructor()">{{
+                    'BUTTON_NEW_USER' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</ng-container>

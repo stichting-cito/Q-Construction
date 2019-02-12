@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" identifier="@Model.Id" title="@Model.Title" layoutTemplateSrc="BO.Choice.SC">
+    <solution>
+        <keyFindings>
+            <keyFinding id="mc" scoringMethod="Dichotomous">
+                @foreach (var key in Model.Keys)
+                {
+                    <keyFact id="@key-mc" score="1" xmlns="http://Cito.Tester.Server/xml/serialization">
+                        <keyValue domain="mc" occur="1">
+                            <stringValue>
+                                <typedValue>@key</typedValue>
+                            </stringValue>
+                        </keyValue>
+                    </keyFact>
+                }      
+            </keyFinding>
+        </keyFindings>
+        <aspectReferences />
+        <ItemScoreTranslationTable>
+            <ItemScoreTranslationTableEntry rawScore="0" translatedScore="0" />
+            <ItemScoreTranslationTableEntry rawScore="1" translatedScore="1" />
+        </ItemScoreTranslationTable>
+    </solution>
+    <parameters>
+        <parameterSet id="entireItem">
+            <booleanparameter name="dualColumnLayout">False</booleanparameter>
+            <texttospeechparameter name="textToSpeechLeft" />
+            <texttospeechparameter name="textToSpeechRight" />
+            <integerparameter name="leftColumnWidth">50</integerparameter>
+            <xhtmlparameter name="leftBody" />
+            <xhtmlresourceparameter name="leftSource" />
+            <resourceparameter name="wordSourceText" />
+            <integerparameter name="sourceHeight">500</integerparameter>
+            <integerparameter name="sourceWidth">0</integerparameter>
+            <xhtmlparameter name="itemBody" />
+            <xhtmlparameter name="itemQuestion">
+                @Html.Raw(Model.BodyText)
+            </xhtmlparameter>
+            <listedparameter name="minAnswers">1</listedparameter>
+            <listedparameter name="expectedAnswers">1</listedparameter>
+            <booleanparameter name="doubleClickToNextItem">False</booleanparameter>
+            <booleanparameter name="horizontallyCenteredAlternatives">False</booleanparameter>
+            <booleanparameter name="hideRadiobuttons">False</booleanparameter>
+            <integerparameter name="multiChoiceType">1</integerparameter>
+            <booleanparameter name="shuffleAlternatives">False</booleanparameter>
+            <multichoicescoringparameter name="multiChoiceScoring" ControllerId="mc" minChoices="1" maxChoices="1" multiChoice="Radio">
+                @for (var i = 0; i <= Model.Alternatives.Count - 1; i++)
+                {
+                    <subparameterset id="@Convert.ToChar(65 + i)">
+                        <xhtmlparameter name="mcOption">
+                            @Html.Raw(Model.Alternatives[i])
+                        </xhtmlparameter>
+                        <xhtmlparameter name="mcOption2" />
+                    </subparameterset>
+ 
+                }
+            </multichoicescoringparameter>
+            <xhtmlparameter name="itemGeneral" />
+        </parameterSet>
+        <parameterSet id="itemtools">
+            <collectionparameter name="attachments">
+                <definition id="">
+                    <resourceparameter name="document" />
+                    <plaintextparameter name="title" />
+                </definition>
+            </collectionparameter>
+            <booleanparameter name="showCalculatorButton" />
+            <listedparameter name="calculatorMode">basic</listedparameter>
+        </parameterSet>
+    </parameters>
+</assessmentItem>

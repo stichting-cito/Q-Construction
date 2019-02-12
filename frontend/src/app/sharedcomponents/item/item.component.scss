@@ -1,0 +1,35 @@
+@import "../../scss/_colors";
+
+.input-group-btn .btn,
+.form-control,
+.input-group-addon {
+    border:0;
+}
+
+.input-group-btn .btn + .btn {
+    border: 0;
+}
+
+.input-group-addon {
+    background-color: white;
+}
+
+.input-group-lg > .form-control {
+    height: auto;
+}
+
+.form-group.question .form-control {
+    min-height: 4em;
+}
+
+.form-group.description .form-control {
+    min-height: 8em;
+}
+
+.readonlyitem {
+
+    .input-group-addon, .form-control {
+        // background:$cito_licht_grijs;
+        background-color: white;
+    }
+}

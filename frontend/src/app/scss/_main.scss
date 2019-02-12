@@ -1,0 +1,191 @@
+// https://github.com/mgechev/angular-seed/wiki/Working-with-SASS
+// @import url('./assets/fonts/RopaSans-Regular.ttf');
+@import 'colors';
+@import 'fonts';
+@import 'bootstrap-custom';
+$bootstrap-sass-asset-helper: false;
+$img-src:                "~bootflat/bootflat//img/check_flat/default.png" !default;
+@import "~bootflat/bootflat/scss/bootflat.scss";
+@import 'offcanvas';
+@import 'quill';
+
+body {
+ background-color: rgb(241, 242, 246);
+}
+
+.ql-editor {
+  background-color: transparent!important;
+}
+
+a,
+.cursor {
+  cursor: pointer;
+}
+
+/* overrule bootstrap 20px margin bottom */
+.navbar {
+  margin-bottom: 0;
+  background-color:white;
+}
+
+// stupid fix for height = 38px
+.form-control
+{
+    min-height: 38px;
+    height: auto;
+}
+
+/* rijen hebben dezelfde hoogte overal */
+@media only screen and (min-width: 768px) {
+  .row-eq-height {
+    display: flex;
+  }
+}
+
+.col-white {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: rgb(241, 242, 246);
+}
+
+.col-dark {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #434a54;
+
+  /*
+  background-color: white;
+  box-shadow: 20px 0 20px -10px #ddd;
+  z-index:100;
+  */
+}
+
+/*
+Een list group op een donkere achtergrond moet
+dan ook hierbinnen transparanet worden
+*/
+
+.col-dark
+.list-group-item,
+.col-dark .list-group-item:hover,
+.col-dark .panel {
+  background-color: transparent;
+  border: 0;
+  color: white;
+}
+
+.col-dark .list-group-item {
+  cursor: pointer;
+}
+
+.col-dark
+.panel,
+.col-dark .list-group {
+  box-shadow: 0 0 0;
+}
+
+.col-dark p {
+  color: white;
+}
+
+.col-dark .readonly .form-control {
+  background-color: #aaa;
+}
+
+.question {
+  min-height: 20px;
+}
+
+.form-group.empty .form-control {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.col-dark .form-group.empty .form-control {
+  color: white;
+}
+
+.screeningbubble {
+  position: relative;
+  width: 100%;
+  background: #f6bb42;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.screeningbubble::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 11px 15px 11px 0;
+  border-color: transparent #f6bb42;
+  display: block;
+  width: 0;
+  z-index: 1;
+  left: -15px;
+  top: 20px;
+}
+
+.right.carousel-control,
+.left.carousel-control {
+  opacity: 0;
+  filter: alpha(opacity=0); /* IE support */
+}
+
+.repeat-text {
+  margin-top: 0.1em;
+  font-size: 50%;
+  color: darkgoldenrod;
+}
+
+.calendar-text { margin-top: 0.3em; }
+
+.carousel-indicators {
+  bottom: -50px;
+}
+
+.carousel-inner {
+  margin-bottom: 30px;
+}
+
+.carousel-indicators .active {
+  background-color: #444;
+}
+
+.carousel-indicators > li,
+.carousel-indicators > li.active {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  border: solid 1px grey;
+  background: lightgrey;
+  text-indent: 0;
+}
+.carousel-indicators > li.active {
+  background: white;
+}
+
+.ui-multiselect .ui-multiselect-trigger {
+    margin-right: 8px;
+}
+
+.ui-dropdown .ui-dropdown-trigger {
+  padding: 0;
+}
+.ui-dialog .ui-dialog-content {
+  height: 100%;
+}
+.FullWidth {
+  width: 100% !important;
+}
+
+button:disabled {
+    color: grey;
+}
+th p-multiselect .ui-multiselect  {
+  width: 100%!important;
+}

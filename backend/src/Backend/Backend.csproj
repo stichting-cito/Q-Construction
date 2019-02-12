@@ -1,0 +1,41 @@
+﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>Citolab.QConstruction.Backend</RootNamespace>
+    <ApplicationInsightsResourceId>/subscriptions/65ef1aad-98cb-4135-8bc8-812ab6b235db/resourcegroups/citolab-q-construction/providers/microsoft.insights/components/citolab-q-construction</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/65ef1aad-98cb-4135-8bc8-812ab6b235db/resourceGroups/citolab-q-construction/providers/microsoft.insights/components/citolab-q-construction</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>77b4e660-a2a1-4d13-95a9-b702d561243c</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="appsettings.local.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ExporILoggedInUserProviderts\Views\QB_BackOffice\base.zip" />
+    <None Remove="Properties\PublishProfiles\citolab-q-construction-testing - Web Deploy.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Exports\Views\QB_BackOffice\base.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="appsettings.local.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Citolab.QConstruction.Logic\Citolab.QConstruction.Logic.csproj" />
+  </ItemGroup>
+</Project>

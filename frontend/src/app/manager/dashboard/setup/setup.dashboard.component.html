@@ -1,0 +1,59 @@
+<div style="padding:15px" *ngIf="dashboardData">
+    <!-- ROW4 -->
+    <div class="row">
+        <div class="col-lg-2">
+            <button style="width:150px;" type="button" (click)="deleteWishlist()" class="btn btn-danger btn-block">{{'BUTTON_DELETE_WISHLIST' | translate}}</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-lg-2">
+            <p>{{ 'ADD_WISHLIST_CONTENT' | translate }}</p>
+        </div>
+        <div class="col-lg-4">
+            <input name="file" required color="primary" type="file" ng2FileSelect [uploader]="uploaderWishlist" />
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-default btn-block" style="width:150px;" [disabled]="!uploaderWishlist.queue || (uploaderWishlist.queue && uploaderWishlist.queue.length === 0)"
+                (click)="fillWishlist()">{{ 'BUTTON_UPLOAD' | translate }}</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;" *ngIf="!itemsCreated">
+        <div class="col-lg-2">
+            <p>{{ 'SCREENINGLIST' | translate }}</p>
+        </div>
+        <div class="col-lg-10">
+            <div class="btn-group" dropdown [(isOpen)]="isopen" *ngIf="(screeningsLists && selectedScreeningList)">
+                <button id="single-button" type="button" class="btn btn-primary" dropdownToggle style="width:200px;">
+						  <span class="caret pull-right"></span>
+						  {{selectedScreeningList.value}}
+    				</button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="account-button">
+                    <li *ngFor="let list of screeningsLists;" role="menuitem">
+                        <a class="dropdown-item" (click)="setSelectedScreeningList(list)">{{list.value}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;" *ngIf="!itemsCreated">
+        <div class="col-lg-2">
+            <p>{{ 'ADD_SCREENINGLIST' | translate }}</p>
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control" name="title" #title="ngModel" required type="text" [(ngModel)]="newScreeningslist.title" placeholder="{{'TITLE'  | translate}}">
+        </div>
+        <div class="col-lg-2">
+            <input name="file" required color="primary" type="file" ng2FileSelect [uploader]="uploaderScreeninglist" />
+        </div>
+        <div class="col-lg-6">
+            <button style="width:150px;" class="btn btn-default btn-block" [disabled]="!newScreeningslist.title || newScreeningslist.title.trim() == '' || !uploaderScreeninglist.queue || (uploaderScreeninglist.queue && uploaderScreeninglist.queue.length === 0)"
+                (click)="addScreeningList()">{{ 'BUTTON_ADD' | translate }}</button>
+        </div>
+    </div>
+</div>
+<p-confirmDialog icon="{{cd.icon}}" width="425" #cd>
+    <footer>
+        <button *ngIf="cd.rejectVisible" type="button" pButton icon="fa-close" label="{{ 'BUTTON_CANCEL' | translate}}" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="fa-check" label="{{ 'BUTTON_OK' | translate}}" (click)="cd.accept()"></button>
+    </footer>
+</p-confirmDialog>

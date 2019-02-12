@@ -1,0 +1,116 @@
+<div *ngIf="!wishlistHasItems" style="padding:15px">
+	{{'NO_STATS' | translate}}
+</div>
+<div *ngIf="wishlistHasItems" style="padding:15px">
+	<!-- ROW1 -->
+	<div class="row" style="padding:15px;padding-bottom:0px;">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="row">
+					<!-- Stats -->
+					<app-stats-tile comments="" number="{{dashboardData.itemsAcceptedCount}}/{{dashboardData.itemTargetCount}}" colour="info"
+					 type="check-circle-o"></app-stats-tile>
+					<app-stats-tile comments="" number="{{dashboardData.meanReviewIterations | number:'1.1'}}" colour="warning" type="repeat"></app-stats-tile>
+					<app-stats-tile comments="" number="{{(dashboardData.percentageMortality / 100) | percent: '1.0'}}" colour="danger" type="trash"></app-stats-tile>
+				</div>
+				<div class="row">
+					<!-- Progress -->
+					<div class="col-lg-12">
+						<div class="panel">
+							<div class="panel-body">
+								<div class="row" style="margin-top:20px;">
+									<div class="col-lg-12">
+										<app-progress-overall [progress]="progressOverall"> </app-progress-overall>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12" style="margin-top:10px;margin-bottom:8px;margin-top:60px;">
+										<div class="col-lg-4" *ngFor="let domainData of percentagePerDomain;">
+											<p style="text-align:center" *ngIf="domainData.labels && domainData.labels.length > 0">{{domainData.labels[0]}}</p>
+											<p-chart type="doughnut" [data]="domainData" [options]="percentagePerDomainOptions"></p-chart>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<!-- Progress Graph -->
+				<div class="row">
+					<div class="panel">
+						<div class="panel-body">
+							<p-chart type="line" [data]="progressData"></p-chart>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<!-- Calendar -->
+		<div class="col-lg-6">
+			<div class="panel">
+				<div class="panel-body" style="padding-bottom:5px;">
+					<app-calendar-icons overdeadline="{{overdeadline}}" oneday="{{oneday}}" sevendays="{{sevendays}}" oversevendays="{{oversevendays}}">
+					</app-calendar-icons>
+				</div>
+			</div>
+			<!-- TestExperts -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{'MD_TESTEXPERTS' | translate}}</h3>
+				</div>
+				<div class="panel-body">
+					<carousel [interval]="7000">
+						<slide *ngFor="let testexpertsPair of testexpertPairs; let index=index">
+							<div class="row">
+								<div class="col-lg-6" *ngFor="let testexpert of testexpertsPair;">
+									<div class="col-lg-3" *ngIf="testexpert">
+										<img [src]="testexpert?.picture" style="margin:auto;width:80px;">
+									</div>
+									<div class="col-lg-3" style="padding-left:30px;" *ngIf="testexpert">
+										<ul style="list-style:none;">
+											<li style="font-weight:bold;margin-bottom:5px;">{{ testexpert.userName.replace(' ', '&nbsp;') }}</li>
+											<li style="color:#37bc9b;">{{'MD_ACCEPTED' | translate}}:&nbsp;{{testexpert?.itemsAcceptedCount}}</li>
+											<li style="color:#f0ad4e;">{{'MD_REVIEWED' | translate}}:&nbsp; {{ testexpert?.iterationCount }} </li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</slide>
+					</carousel>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5">
+			<!-- Constructeurs -->
+			<div class="row">
+				<div class="panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{'MD_CONSTRUCTORS' | translate}}</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row" *ngFor="let constructorPair of constructorPairs; let index=index" style="padding-bottom:8px;">
+							<div class="col-lg-6" *ngFor="let constructor of constructorPair;">
+								<div class="col-lg-3" *ngIf="constructor">
+									<img [src]="constructor?.picture" style="margin:auto;width:80px;">
+								</div>
+								<div class="col-lg-3" style="padding-left:30px;" *ngIf="constructor">
+									<ul style="list-style:none;">
+										<li style="font-weight:bold;margin-bottom:5px;">{{ constructor.userName.replace(' ', '&nbsp;') }}</li>
+										<li style="color:#37bc9b;">{{'MD_ACCEPTED' | translate}}:&nbsp;{{constructor?.itemsAcceptedCount}}</li>
+										<li style="color:#f0ad4e;">{{'MD_ROUNDS' | translate}}:&nbsp;{{constructor?.meanReviewIterations| number:'1.1'}}</li>
+										<li style="color:#d9534f;">{{'MD_REJECTED' | translate}}:&nbsp;{{(constructor?.percentageRejected / 100) | percent: '1.0'}}</li>
+									</ul>
+								</div>
+							</div>
+							<div *ngIf="index==0" style="margin:20px;">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

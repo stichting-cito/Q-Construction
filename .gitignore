@@ -1,0 +1,3 @@
+backend/src/wwwroot/**
+backend/src/Backend/Properties/PublishProfiles/**
+/backend/Tools/GetStatsMailAndClean/Properties/PublishProfiles/**

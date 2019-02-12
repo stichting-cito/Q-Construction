@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" ?>
+<ResourceEntry name="@Model.Id" originalname="" originalversion="1" version="1" uri="@Model.Id" type="ItemResourceEntity" cacheLocal="false" isEncrypted="false" state="0">
+    <DependentResource name="@Model.Template" />
+    @foreach (var image in Model.Images)
+    {
+        <DependentResource name="@image.Key" />
+    }
+</ResourceEntry>

@@ -1,0 +1,27 @@
+<div class="form-group">
+    <div class="btn-group btn-group-justified" *ngIf="!readonly">
+        <div *ngFor="let itemType of itemTypesToChoose" class="btn-group" role="group">
+            <button type="button" style="height:80px;" class="btn btn-info" [ngClass]="{'btn-default' : item.itemType == itemType.mc}"
+                (click)="selectType(itemType.type)">
+                <span [ngClass]="'glyphicon ' + itemType.icon" aria-hidden="true"></span><br />{{ itemType.textRef | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="btn-group btn-group-justified" *ngIf="readonly">
+        <span>
+          <span [ngClass]="'glyphicon ' + selectedItemType.icon" aria-hidden="true"></span> {{ selectedItemType.textRef
+        | translate }}
+        </span>
+    </div>
+</div>
+<div [ngSwitch]="item.itemType">
+    <app-choiceinteraction-template #componentType [item]="item" [readonly]="readonly" [imageHandler]="imageHandler" *ngSwitchCase="itemType.mc">
+    </app-choiceinteraction-template>
+    <app-textentryinteraction-template #componentType [item]="item" [readonly]="readonly" [imageHandler]="imageHandler" *ngSwitchCase="itemType.sa">
+    </app-textentryinteraction-template>
+    <app-graphicgapmatchinteraction-template #componentType [item]="item" [readonly]="readonly" [imageHandler]="imageHandler"
+        *ngSwitchCase="itemType.graphicgapmatch">
+    </app-graphicgapmatchinteraction-template>
+    <app-hotspotinteraction-template #componentType [item]="item" [readonly]="readonly" [imageHandler]="imageHandler" *ngSwitchCase="itemType.hotspot">
+    </app-hotspotinteraction-template>
+</div>

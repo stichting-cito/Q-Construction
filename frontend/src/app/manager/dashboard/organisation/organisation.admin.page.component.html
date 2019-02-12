@@ -1,0 +1,46 @@
+<div *ngIf="organisations$ | async as organisations">
+    <p-dataView [value]="organisations">
+        <ng-template let-organisation pTemplate="listItem">
+            <div class="ui-g" style="padding: 2px;border-bottom: 1px solid #d9d9d9">
+                <div class="ui-g-12 ui-md-11">
+                    {{organisation}}
+                </div>
+                <div class="ui-g-12 ui-md-1 trash-icon">
+                    <button type="button" icon="pi pi-search" (click)="delete(organisation)"> <i class="pi pi-trash"></i></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+    <form class="form-inline" style="margin-top: 20px;">
+        <div class="form-group">
+            <label for="organisationname" style="margin-right: 10px;">Organisation name</label>
+            <label class="sr-only" for="organisationname">Add organisation</label>
+            <input style="margin-right: 10px;" #organisationname type="email" class="form-control" id="organisationname"
+                placeholder="organisation name">
+            <label  style="margin-right: 10px;"  for="sel1">Select language:</label>
+            <select  style="margin-right: 10px;"  #dropdown class="form-control" id="sel1">
+                <option value="NL">Dutch</option>
+                <option value="EN">English</option>
+            </select>
+            <!-- <div class="btn-group" dropdown #dropdown="bs-dropdown">
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    Select language<span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item">EN</a></li>
+                    <li role="menuitem"><a class="dropdown-item">NL</a></li>
+                </ul>
+            </div> -->
+            <button class="btn btn-default" (click)="add(organisationname.value, dropdown.value)">Add
+                organisation</button>
+        </div>
+
+    </form>
+    <div style="margin-top: 20px;" *ngIf="errorMessage" class="bg-danger">{{errorMessage}}</div>
+
+    <div style="margin-top: 20px;" *ngIf="addedOrganisationResult" [innerHTML]="addedOrganisationResult" class="bg-success"></div>
+
+    <p-confirmDialog [transitionOptions]="'0ms'">
+    </p-confirmDialog>
+</div>

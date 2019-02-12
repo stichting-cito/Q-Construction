@@ -1,0 +1,53 @@
+<!--
+{{ 'MENUITEM_CO_NEEDSWORK' | translate }}
+{{ 'MENUITEM_CO_READYFORREVIEW' | translate }}
+{{ 'MENUITEM_TE_ARCHIVE' | translate }}
+-->
+<div class="row">
+    <div class="col-xs-12">
+
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==0">
+    <h2><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_CO_DRAFT' | translate }}
+</h2>
+{{ 'NO_ITEMS_CONCEPT' | translate}}
+</span>
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==3">
+    <h2><i class="fa fa-inbox" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_TE_TODO' | translate }}
+</h2>
+    {{ 'NO_ITEMS_INBOX' | translate}}
+
+</span>
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==1">
+    <h1><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_CO_INREVIEW' | translate }}
+</h1>
+    {{ 'NO_ITEMS_REVIEW' | translate}}
+</span>
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==4">
+    <h1><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_CO_ACCEPTED' | translate }}
+</h1>
+{{ 'NO_ITEMS_ACCEPTED' | translate}}
+
+</span>
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==5">
+    <h1><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_CO_REJECTED' | translate }}
+</h1>
+ {{ 'NO_ITEMS_REJECTED' | translate}}
+
+</span>
+        <span *ngIf="listOfItems && listOfItems.length == 0 && selectedState==6">
+    <h1><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;{{ 'MENUITEM_CO_DELETED' | translate }}
+</h1>
+    {{ 'NO_ITEMS_TRASH' | translate}}
+</span>
+
+        <div class="list-group">
+            <a (click)="select(item)" class="list-group-item" *ngFor="let item of listOfItems; let idx = index">
+                {{ item.bodyText | truncate:50 | async }}
+                <span *ngIf="daysLeftRelavant(item)" class="pull-right" style="color:#aaaaaa;font-size:11px;">
+                <span *ngIf="daysLeftRelavant(item)" class="glyphicon glyphicon-time"></span> {{ item.deadline | datetimecsharp | daysleft }}
+                {{ 'DAYS' | translate }}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "GetStatsAndClean": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Demo" //"Demo" //"Development"
+        },
+        "commandLineArgs": "host start --pause-on-error"
+      }
+    }
+}

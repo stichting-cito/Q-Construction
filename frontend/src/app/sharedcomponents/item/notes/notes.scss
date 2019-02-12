@@ -1,0 +1,44 @@
+/* http://nicolasgallagher.com/pure-css-folded-corner-effect/ */
+
+:host {
+    margin-bottom: 15px;
+    display:block;
+}
+
+.note {
+    display:block;
+    position: relative;
+    width: 100%;
+    padding: 1em 1.5em;
+    background: #FFCE54;
+    overflow: hidden;
+    min-height: 10em;
+}
+
+.note:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 16px 16px 0;
+    border-style: solid;
+    border-color: #fff #fff #F6BB42 #F6BB42;
+    background: #F6BB42;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    /* Firefox 3.0 damage limitation */
+    display: block; width: 0;
+}
+
+.note.rounded {
+    -moz-border-radius: 5px 0 5px 5px;
+    border-radius: 5px 0 5px 5px;
+}
+
+.note.rounded:before {
+    border-width: 8px;
+    border-color: #fff #fff transparent transparent;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+}

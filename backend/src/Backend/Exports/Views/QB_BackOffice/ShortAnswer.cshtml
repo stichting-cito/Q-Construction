@@ -1,0 +1,81 @@
+﻿<?xml version="1.0"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" identifier="@Model.Id" title="@Model.Title" layoutTemplateSrc="BO.TextEntry.SC">
+    <solution>
+        <keyFindings>
+            <keyFinding id="gapController" scoringMethod="Dichotomous">
+                @foreach (var key in Model.Keys)
+                {
+                    <keyFact id="1-I11a32e01-294a-40a8-bb0f-51327d6c7da5" score="1" xmlns="http://Cito.Tester.Server/xml/serialization">
+                        <keyValue domain="mc" occur="1">
+                            <stringValue>
+                                <typedValue>@key</typedValue>
+                            </stringValue>
+                        </keyValue>
+                    </keyFact>
+                }
+            </keyFinding>
+        </keyFindings>
+        <aspectReferences />
+        <ItemScoreTranslationTable>
+            <ItemScoreTranslationTableEntry rawScore="0" translatedScore="0" />
+            <ItemScoreTranslationTableEntry rawScore="1" translatedScore="1" />
+        </ItemScoreTranslationTable>
+    </solution>
+    <parameters>
+        <parameterSet id="entireItem">
+            <plaintextparameter name="facetScoringConverter">Cito.Tester.PlugIns.Interaction.Combined.CombinedInteractionController</plaintextparameter>
+            <booleanparameter name="dualColumnLayout">False</booleanparameter>
+            <texttospeechparameter name="textToSpeechLeft" />
+            <texttospeechparameter name="textToSpeechRight" />
+            <xhtmlparameter name="leftBody" />
+            <xhtmlresourceparameter name="leftSource" />
+            <resourceparameter name="wordSourceText" />
+            <integerparameter name="sourceHeight">500</integerparameter>
+            <xhtmlparameter name="itemBody" />
+            <xhtmlparameter name="itemQuestion">@Html.Raw(Model.BodyText)</xhtmlparameter>
+            <xhtmlparameter name="textAndInteractions">
+                <p id="c1-id-11" xmlns="http://www.w3.org/1999/xhtml">
+                    <cito:InlineElement id="I11a32e01-294a-40a8-bb0f-51327d6c7da5" layoutTemplateSourceName="InlineGapInteger" inlineFO="" xmlns:cito="http://www.cito.nl/citotester">
+                        <cito:parameters>
+                            <cito:parameterSet id="entireItem">
+                                <cito:plaintextparameter name="gapId">I11a32e01-294a-40a8-bb0f-51327d6c7da5</cito:plaintextparameter>
+                                <cito:plaintextparameter name="gapLabel">Tekstveld1</cito:plaintextparameter>
+                                <cito:plaintextparameter name="controlType">input</cito:plaintextparameter>
+                                <cito:listedparameter name="gapType">Integer</cito:listedparameter>
+                                <cito:booleanparameter name="isUnsignedEntry">False</cito:booleanparameter>
+                                <cito:listedparameter name="nrOfDigits">7</cito:listedparameter>
+                                <cito:plaintextparameter name="gapMaskCharacter">_</cito:plaintextparameter>
+                                <cito:integerScoringParameter name="integerScoring" label="Tekstveld1" ControllerId="gapController" findingOverride="gapController" maxLength="7">
+                                    <cito:subparameterset id="1">
+                                        <cito:booleanparameter name="fictiveInteger">True</cito:booleanparameter>
+                                    </cito:subparameterset>
+                                    <cito:definition id="">
+                                        <cito:booleanparameter name="fictiveInteger" />
+                                    </cito:definition>
+                                </cito:integerScoringParameter>
+                            </cito:parameterSet>
+                        </cito:parameters>
+                    </cito:InlineElement> </p>
+            </xhtmlparameter>
+            <gapMatchScoringParameter name="gapMatchScoring" ControllerId="gapMatchController" findingOverride="gapController">
+                <definition id="">
+                    <gapTextParameter name="gapText" matchMax="1" />
+                </definition>
+                <xhtmlParameter name="itemInlineInput" />
+            </gapMatchScoringParameter>
+            <xhtmlparameter name="itemGeneral">
+                @Html.Raw(Model.GeneralText)
+            </xhtmlparameter>
+        </parameterSet>
+        <parameterSet id="itemtools">
+            <collectionparameter name="attachments">
+                <definition id="">
+                    <resourceparameter name="document" />
+                    <plaintextparameter name="title" />
+                </definition>
+            </collectionparameter>
+            <booleanparameter name="showCalculatorButton" />
+            <listedparameter name="calculatorMode">basic</listedparameter>
+        </parameterSet>
+    </parameters>
+</assessmentItem>

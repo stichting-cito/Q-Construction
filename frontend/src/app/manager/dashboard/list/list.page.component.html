@@ -1,0 +1,123 @@
+<div style="margin: 20px 5px 5px 5px;" *ngIf="listOfWishlistItem.length > 0">
+    <div class="btn-group" placement="bottom right" dropdown style="position: absolute; top: 65px; right: 17px;">
+        <button type="button" class="btn btn-danger">Export</button>
+        <button id="button-split" type="button" dropdownToggle class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+            aria-controls="dropdown-split">
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+        </button>
+        <ul id="dropdown-split" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-split">
+            <li role="menuitem"><a class="dropdown-item" (click)="download()">QTI 2.2</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="download21()">QTI 2.1</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="downloadQuestifyBackoffice()">Questify - B.V.</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="getFeedback()">List of Feedback</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="getWordAll()">MsWord all items</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="getWordAccepted()">MsWord accepted</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="exportModal.show()">MsWord for selected items</a></li>
+        </ul>
+    </div>
+    <p-table [rowExpandMode]="'single'" (onRowExpand)="handleRowExpand($event)" #dt [value]="listOfWishlistItem"
+        [paginator]="true" [rows]="20" dataKey="learningobjectiveCode">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3em"></th>
+                <ng-container *ngFor="let col of cols" [ngSwitch]="col.field">
+                    <th style="width: 150px;" *ngSwitchCase="'learningobjectiveCode'" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th style="width: 300px;" *ngSwitchCase="'learningobjective'" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th style="width: 100px;" *ngSwitchCase="'deadline'" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    <th *ngSwitchDefault [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </ng-container>
+            </tr>
+            <tr>
+                <th style="width: 3em"></th>
+                <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                    <input style="width:100%;" *ngSwitchCase="'learningobjectiveCode'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input style="width:100%;" *ngSwitchCase="'learningobjective'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                </th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-expanded="expanded" let-wishlistItem>
+            <tr>
+                <td>
+                    <a [pRowToggler]="wishlistItem">
+                        <i [ngClass]="expanded == wishlistItem.id ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                    </a>
+                </td>
+                <td *ngFor="let col of cols">
+                    {{wishlistItem[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-wi>
+            <tr>
+                <td [attr.colspan]="cols.length + 1">
+                    <table *ngIf="listOfItems && listOfItems.length > 0" class="table table-striped" style="margin-left: 20px;margin-top: 10px;">
+                        <thead>
+                            <tr>
+                                <th width="30%">{{'COLUMN_HEADER_MA_DETAILS_ITEMS' | translate }}</th>
+                                <th>{{'COLUMN_HEADER_MA_DETAILS_ACCEPTED_BY' | translate }}</th>
+                                <th>{{'COLUMN_HEADER_MA_DETAILS_SCREENERS' | translate }}</th>
+                                <th>{{'COLUMN_HEADER_MA_DETAILS_ROUNDS' | translate }}</th>
+                                <th>{{'COLUMN_HEADER_MA_DETAILS_AUTHOR' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listOfItems; let idx = index" class="cursor">
+                                <td>{{ item.bodyText }}</td>
+                                <td>{{ item.acceptedBy }}</td>
+                                <td>{{ item.screeners }}</td>
+                                <td>{{ item.screeningCount }}</td>
+                                <td>{{ item.author }}</td>
+                                <td (click)="downloadItem(item.id)"><i class="fa fa-download" aria-hidden="true"></i>
+                                    QTI 2.2</td>
+                                <td (click)="downloadItem21(item.id)"><i class="fa fa-download" aria-hidden="true"></i>
+                                    QTI 2.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p *ngIf="listIsEmpty">{{ 'NOT_FILLED' | translate}}</p>
+</div>
+
+<div bsModal #exportModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="export modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left"></h4>
+                <button type="button" class="close pull-right" (click)="exportModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="width:100%;">
+                    <p>{{ 'LABEL_PASTE_CODES_FOR_WORDDOC' | translate }}</p>
+                    <textarea style="width:100%;height:300px;" [(ngModel)]="itemCodes"></textarea>
+                    <button style="margin-bottom: 10px; margin-right: 100%;" [disabled]="(itemCodes == null)" (click)="getWordDocument()">{{
+                        'BUTTON_EXPORT' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

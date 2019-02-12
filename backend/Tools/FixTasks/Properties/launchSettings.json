@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "FixTasks": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+        //"Demo" //"Development"
+      }
+    }
+  }
+}

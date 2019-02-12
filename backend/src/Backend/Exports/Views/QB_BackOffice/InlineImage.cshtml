@@ -1,0 +1,28 @@
+﻿<cito:InlineElement id="@Model.Id" layoutTemplateSourceName="InlineImage" xmlns:cito="http://www.cito.nl/citotester">
+    <cito:parameters>
+        <cito:parameterSet id="entireItem">
+            <cito:plaintextparameter name="imageId"/>
+            <cito:plaintextparameter name="printImageId"/>
+            <cito:plaintextparameter name="largeImageId"/>
+            <cito:plaintextparameter name="windowId"/>
+            <cito:plaintextparameter name="windowContentId"/>
+            <cito:resourceparameter name="source" height="@Model.Height" width="@Model.Width" editSize="true">@Model.Id</cito:resourceparameter>
+            <cito:booleanparameter name="editSize">True</cito:booleanparameter>
+            <cito:integerparameter name="width">@Model.Width</cito:integerparameter>
+            <cito:integerparameter name="height">@Model.Height</cito:integerparameter>
+            <cito:booleanparameter name="useBorder">False</cito:booleanparameter>
+            <cito:resourceparameter name="printImageSource"/>
+            <cito:booleanparameter name="showPopup">False</cito:booleanparameter>
+            <cito:resourceparameter name="largeImage"/>
+            <cito:plaintextparameter name="popupDescription"/>
+            <cito:booleanparameter name="editLargeSize">False</cito:booleanparameter>
+            <cito:integerparameter name="largeWidth"/>
+            <cito:integerparameter name="largeHeight"/>
+            <cito:booleanparameter name="editLargePosition">False</cito:booleanparameter>
+            <cito:integerparameter name="largeXpos"/>
+            <cito:integerparameter name="largeYpos"/>
+            <cito:booleanparameter name="largeImageModal">False</cito:booleanparameter>
+            <cito:booleanparameter name="largeImageResizable">False</cito:booleanparameter>
+        </cito:parameterSet>
+    </cito:parameters>
+</cito:InlineElement>
