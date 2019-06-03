@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 namespace GetStatsMailAndClean
 {
 
-    
+
     public static class GetStatsMailAndCleanFunction
     {
         //[TimerTrigger("0 */1 * * * *")]
@@ -37,7 +37,6 @@ namespace GetStatsMailAndClean
                 .AddEnvironmentVariables()
                 .Build();
             var slackHookUrl = config["SlackHookUrl"];
-            var recipients = config["Recipients"].Split(';');
             var mongoDbConnectionString = config["MongoDB"];
             // Setting up DI
             var services = new ServiceCollection();
@@ -47,7 +46,7 @@ namespace GetStatsMailAndClean
             log.LogInformation($"Connection string: {mongoDbConnectionString} environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
             var serviceProvider = services.BuildServiceProvider();
             var repositoryFactory = serviceProvider.GetService<IRepositoryFactory>();
-            
+
             var userRepos = repositoryFactory.GetRepository<User>();
             var wishlistRepos = repositoryFactory.GetRepository<Wishlist>();
             var itemRepos = repositoryFactory.GetRepository<Item>();
@@ -62,24 +61,22 @@ namespace GetStatsMailAndClean
                 .Distinct()
                 .ToList();
 
-            if (recipients.Any())
+            var sb = new StringBuilder();
+            foreach (var organisation in organisations)
             {
-                var sb = new StringBuilder();
-                foreach (var organisation in organisations)
-                {
-                    var wishlist = wishlistRepos
-                        .AsQueryable()
-                        .FirstOrDefault(w => w.OrganisationName == organisation);
-                    var stats = statsPerWishlistRepository.AsQueryable().FirstOrDefault(s => s.Id == wishlist.Id);
-                    if (stats == null) continue;
-                    sb.AppendLine($"*Organisation: {organisation}*");
-                    sb.AppendLine("");
-                    sb.AppendLine($"• Accepted items: {stats.ItemsAcceptedCount}");
-                    sb.AppendLine($"• In review: {stats.ItemsInReviewCount}");
-                    sb.AppendLine($"• Rejected: {stats.ItemsRejectedCount}");
-                }
-                SlackHelper.PostMessage(new Payload { Text = sb.ToString() }, slackHookUrl);
+                var wishlist = wishlistRepos
+                    .AsQueryable()
+                    .FirstOrDefault(w => w.OrganisationName == organisation);
+                var stats = statsPerWishlistRepository.AsQueryable()
+                        .FirstOrDefault(s => s.Id == wishlist.Id);
+                if (stats == null) continue;
+                sb.AppendLine($"*Organisation: {organisation}*");
+                sb.AppendLine("");
+                sb.AppendLine($"• Accepted items: {stats.ItemsAcceptedCount}");
+                sb.AppendLine($"• In review: {stats.ItemsInReviewCount}");
+                sb.AppendLine($"• Rejected: {stats.ItemsRejectedCount}");
             }
+            SlackHelper.PostMessage(new Payload { Text = sb.ToString() }, slackHookUrl);
 
             foreach (var organisation in organisations)
             {
