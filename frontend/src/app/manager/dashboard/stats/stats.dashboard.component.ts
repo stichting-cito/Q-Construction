@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 // import 'moment/locale/nl';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'stats.dashboard.component.html'
 })
 
@@ -37,7 +36,7 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSubscription = this.route.parent.data.subscribe(data => {
-            this.dashboardData = data['data'];
+            this.dashboardData = data.data;
             if (this.dashboardData) {
                 this.wishlistHasItems = this.dashboardData.wishlist.wishListItems.filter(w => w.numberOfItems !== w.todo).length > 0;
                 this.getProgressData();
@@ -56,16 +55,16 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
     getProgressData() {
         const tc = this.dashboardData.itemTargetCount; const ac = this.dashboardData.itemsAcceptedCount;
         const rc = this.dashboardData.itemsInReviewCount; const tdc = this.dashboardData.itemsTodoCount;
-        const t_acc = `${ac} ${this.translateService.instant('MD_ACCEPTED_PROGRESS')}`;
-        const t_ir = `${rc} ${this.translateService.instant('MD_INREVIEW_PROGRESS')}`;
-        const t_td = `${tdc} ${this.translateService.instant('MD_TODO_PROGRESS')}`;
-        const p_acc = this.getPercentage(ac, tc);
-        const p_review = this.getPercentage(rc, tc);
-        const p_todo = 100 - (p_acc + p_review);
+        const tAcc = `${ac} ${this.translateService.instant('MD_ACCEPTED_PROGRESS')}`;
+        const tIr = `${rc} ${this.translateService.instant('MD_INREVIEW_PROGRESS')}`;
+        const tTd = `${tdc} ${this.translateService.instant('MD_TODO_PROGRESS')}`;
+        const pAcc = this.getPercentage(ac, tc);
+        const pReview = this.getPercentage(rc, tc);
+        const pTodo = 100 - (pAcc + pReview);
         this.progressOverall = [
-            { label: t_acc, percentage: p_acc, value: p_acc, type: 'info' },
-            { label: t_ir, percentage: p_review, value: p_review, type: 'warning' },
-            { label: t_td, percentage: p_todo, value: p_todo, type: 'default' }];
+            { label: tAcc, percentage: pAcc, value: pAcc, type: 'info' },
+            { label: tIr, percentage: pReview, value: pReview, type: 'warning' },
+            { label: tTd, percentage: pTodo, value: pTodo, type: 'default' }];
     }
 
     getDeadlineDates() {
@@ -98,10 +97,10 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
             }
             let totalActual = 0;
             // sum the actuals over the weeks. if there is one created in wk2 its still there in all next weeks
-            for (let index = 0; index < weeks.length; index++) {
-                totalActual += weeks[index].itemCountActual;
-                weeks[index].itemCountActual = totalActual;
-            }
+            weeks.forEach(week => {
+                totalActual += week.itemCountActual;
+                week.itemCountActual = totalActual;
+            });
             // divide the items this should be created equally over the weeks to go
             for (let index = weeks.length - 1; index >= 0; index--) {
                 const totalExpected = weeks[index].itemCountDeadlineEnd;
@@ -118,7 +117,7 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
             const progressActual = weeks.map((w) => w.itemCountActual);
             progressActual.splice(currentweek + 1); // remove the data after today.
             this.progressData = {
-                labels: labels,
+                labels,
                 datasets: [{
                     label: 'Ideal', data: [0].concat(weeks.map((w) => w.itemCountDeadlineExpected)), // add zero to start with
                     fill: true, borderColor: '#aab2bd'
@@ -186,6 +185,7 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
 
     getFirstDayWeek(d: Date) {
         d = new Date(d);
+        // tslint:disable-next-line:one-variable-per-declaration
         const day = d.getDay(),
             diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
         return new Date(d.setDate(diff));
@@ -224,7 +224,7 @@ export class DashboardStatsComponent implements OnInit, OnDestroy {
         return {
             // the longest text this could appear in the center
             maxText: '100%',
-            text: text,
+            text,
             fontFamily: 'Arial',
             fontStyle: 'normal',
             fontColor: '#000',

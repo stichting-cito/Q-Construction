@@ -12,7 +12,6 @@ interface SimpleChoiceFormModel {
 }
 
 @Component({
-    moduleId: module.id,
     selector: 'app-choiceinteraction-template',
     styleUrls: ['./choiceinteraction.component.scss'],
     templateUrl: './choiceinteraction.component.html'
@@ -82,7 +81,7 @@ export class ChoiceInteractionComponent implements OnInit, IItemType {
         if (nrchecked >= minimal && nrchecked <= maximum) {
             valid = true;
         }
-        return valid ? null : { 'required': true };
+        return valid ? null : { required: true };
     }
 
     get form() {
@@ -120,20 +119,20 @@ export class ChoiceInteractionComponent implements OnInit, IItemType {
     ngOnInit() {
         // When an item is created, create 3 default simpleChoices
         if (this.item.simpleChoices === null || this.item.simpleChoices.length === 0) {
-            this.item.simpleChoices = [0, 1, 2].map(() => ({ 'title': '', 'isKey': false }));
+            this.item.simpleChoices = [0, 1, 2].map(() => ({ title: '', isKey: false }));
         }
         this.simpleChoicesFormArray = this.initSimpleChoicesFormGroup();
         this.editItemForm = new FormGroup({
-            'question': new FormControl(this.item.bodyText, [Validators.required]),
-            'simpleChoices': this.simpleChoicesFormArray
+            question: new FormControl(this.item.bodyText, [Validators.required]),
+            simpleChoices: this.simpleChoicesFormArray
         });
     }
 
     setRadio(index: number) {
         const simpleChoices = (this.form.get('simpleChoices') as FormArray).controls;
-        for (let i = 0; i < simpleChoices.length; i++) {
-            simpleChoices[i].get('key').setValue(false);
-        }
+        simpleChoices.forEach(choice => {
+            choice.get('key').setValue(false);
+        });
         simpleChoices[index].get('key').setValue(true);
     }
 
@@ -146,7 +145,7 @@ export class ChoiceInteractionComponent implements OnInit, IItemType {
         // copy properties from model form to item form
         this.item.bodyText = this.form.value.question;
         this.item.simpleChoices = (this.form.value.simpleChoices as SimpleChoiceFormModel[])
-            .map((element) => ({ 'title': element.title, 'isKey': element.key }));
+            .map((element) => ({ title: element.title, isKey: element.key }));
     }
 
     addSimpleChoice(title: string = '', key: boolean = false) {

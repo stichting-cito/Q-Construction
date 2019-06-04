@@ -10,6 +10,6 @@ export class ScreeningResolver implements Resolve<Screening> {
     constructor(private screeningService: ScreeningService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Screening> {
-        return this.screeningService.getByItem(route.params['id']);
+        return this.screeningService.getByItem(route.params.id);
     }
 }

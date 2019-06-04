@@ -12,7 +12,7 @@ export class ItemSummaryResolver implements Resolve<Array<ItemSummary>> {
 
     resolve(route: ActivatedRouteSnapshot): Observable<Array<ItemSummary>> {
         const states: Array<ItemStatus> = new Array<ItemStatus>();
-        states.push(+ItemStatus[route.params['state']]);
+        states.push(+ItemStatus[route.params.state]);
         if (states[0] === ItemStatus.readyForReview) {
             states.push(ItemStatus.inReview);
         }

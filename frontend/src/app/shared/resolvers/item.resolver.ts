@@ -10,6 +10,6 @@ export class ItemResolver implements Resolve<Item> {
     constructor(private itemService: ItemService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Item> {
-        return this.itemService.get(route.params['id']);
+        return this.itemService.get(route.params.id);
     }
 }

@@ -6,7 +6,6 @@ import { DashboardData } from '../../../shared/model/frontendmodel';
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'quality.dashboard.component.html'
 })
 
@@ -27,7 +26,7 @@ export class DashboardQualityComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSubscription = this.route.parent.data.subscribe(data => {
-            this.dashboardData = data['data'];
+            this.dashboardData = data.data;
             if (this.dashboardData) {
                 this.wishlistHasItems = this.dashboardData &&
                     this.dashboardData.wishlist.wishListItems.filter(w => w.numberOfItems !== w.todo).length > 0;

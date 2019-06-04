@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 
 @Component({
-    moduleId: module.id,
     styleUrls: ['organisation.admin.page.component.scss'],
     templateUrl: 'organisation.admin.page.component.html'
 })
@@ -13,8 +12,7 @@ export class OrganisationAdministrationComponent {
     organisations$: Observable<string[]>;
     addedOrganisationResult = '';
     errorMessage = '';
-    constructor(private organisationService: OrganisationService,
-        private confirmationService: ConfirmationService) {
+    constructor(private organisationService: OrganisationService, private confirmationService: ConfirmationService) {
         this.organisations$ = this.organisationService.get();
     }
 
@@ -34,7 +32,7 @@ export class OrganisationAdministrationComponent {
                 this.errorMessage = 'Organisation name cannot be empty.';
             }
             if (!language) {
-                this.errorMessage = this.errorMessage  + ' Language name cannot be empty.';
+                this.errorMessage = this.errorMessage + ' Language name cannot be empty.';
             }
 
         } else {

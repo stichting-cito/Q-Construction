@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'dashboard.te.page.component.html',
     styleUrls: ['dashboard.te.page.component.scss']
 })
@@ -23,21 +22,22 @@ export class DashboardTEComponent implements OnInit, OnDestroy {
     private routeDataSubscription: Subscription;
 
     constructor(private route: ActivatedRoute, private router: Router,
+        // tslint:disable-next-line:align
         private screeningService: ScreeningService, private translateService: TranslateService) { }
 
     ngOnInit() {
         this.routeSubscription = this.route.params
-            .pipe(map(params => params['menuItem']))
+            .pipe(map(params => params.menuItem))
             .subscribe((menuItem) => this.menuItem = +MenuItemTestExpert[menuItem]);
         this.routeDataSubscription = this.route.data.subscribe(data => {
-            this.listOfItems = data['list'];
+            this.listOfItems = data.list;
             this.authors = Array.from(new Set(this.listOfItems.map(i => i.author)))
                 .map(v => ({ label: v, value: v }));
             this.state = Array.from(new Set(this.listOfItems.map(i => i.state)))
                 .map(v => ({ label: v, value: v }));
         });
         this.translateService.get('COLUMN_HEADER_TE_CODE').subscribe(header => {
-            this.cols = [{ field: 'uniqueCode', header: header },
+            this.cols = [{ field: 'uniqueCode', header },
             { field: 'name', header: this.translateService.instant('COLUMN_HEADER_TE_ITEM') },
             { field: 'learningobjective', header: this.translateService.instant('COLUMN_HEADER_TE_LEARNINGOBJECTIVE') },
             { field: 'deadline', header: this.translateService.instant('COLUMN_HEADER_TE_DEADLINE') },

@@ -12,12 +12,11 @@ import { truncate } from 'src/app/shared/helpers/utils';
 
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'list.page.component.html'
 })
 
 export class ListComponent implements OnInit, OnDestroy {
-    @ViewChild(Table) table: Table;
+    @ViewChild(Table, { static: false }) table: Table;
     listOfWishlistItem = new Array<WishlistItem>();
     listOfItems = new Array<ItemSummary>();
     showsidebar = false;
@@ -27,15 +26,15 @@ export class ListComponent implements OnInit, OnDestroy {
     cols: any[] = [];
     private routeSubscription: Subscription;
 
-    constructor(private route: ActivatedRoute,
-        private userService: UserService,
+    constructor(private route: ActivatedRoute, private userService: UserService,
+        // tslint:disable-next-line:align
         private wishListService: WishlistService, private translateService: TranslateService) { }
 
     ngOnInit() {
         if (this.userService.user.selectedWishlist) {
             this.wishListService.get(this.userService.user.selectedWishlist.id).subscribe(w => this.wishListId = w.id);
             this.routeSubscription = this.route.data.subscribe(data => {
-                this.listOfWishlistItem = data['list'];
+                this.listOfWishlistItem = data.list;
                 this.listIsEmpty = (!this.listOfWishlistItem || this.listOfWishlistItem.length === 0);
             });
             this.translateService.get('COLUMN_HEADER_MA_LEARNINGOBJECTIVE_CODE').subscribe(lo => {

@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
  * applications routes, configuring the paths for the lazy loaded components (HomeComponent, AboutComponent).
  */
 @Component({
-    moduleId: module.id,
     selector: 'app-root',
     templateUrl: 'app.component.html'
 })

@@ -23,7 +23,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoginModule } from './sharedcomponents/login/login.page.module';
 import { NavbarModule } from './sharedcomponents/navbar/navbar.module';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BackendUrlInterceptor } from './shared/interceptor/backed-url.interceptor';
+import { BackendUrlInterceptor } from './shared/interceptor/backend-url.interceptor';
 import { ErrorInterceptor } from './shared/interceptor/error.interceptor';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';

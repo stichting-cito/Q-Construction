@@ -1,7 +1,6 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 @Component({
-    moduleId: module.id,
     selector: 'app-htmlviewer',
     template: `<div #htmldiv [innerHTML]="innerHTML"></div>
     <div bsModal #imageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="image modal" aria-hidden="true">
@@ -24,7 +23,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class HtmlViewerComponent implements AfterViewInit {
     @Input() innerHTML = '';
     public selectedImage = '';
-    @ViewChild('imageModal') public imageModal: ModalDirective;
+    @ViewChild('imageModal', { static: false }) public imageModal: ModalDirective;
     constructor(protected el: ElementRef) { }
 
     ngAfterViewInit(): void {

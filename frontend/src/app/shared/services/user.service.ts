@@ -18,12 +18,11 @@ export class UserService {
     userRetrieved = new EventEmitter();
     private endPoint = 'Users';
 
-    constructor(private http: HttpClient, private router: Router,
-        @Inject(APP_BASE_HREF) private baseHref: string, private jwtHelperService: JwtHelperService) { }
+    constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) { }
 
     routeUser(force: boolean = false) {
         if (force) {
-            window.location.href = this.baseHref;
+            window.location.href = this.getbaseUrl();
         } else {
             if (!this.user) {
                 this.router.navigate(['/login']);
@@ -113,5 +112,12 @@ export class UserService {
         sessionStorage.removeItem('User');
         this.user = null;
         this.router.navigate(['/login']);
+    }
+
+    private getbaseUrl = (): string => {
+        const pathArray = window.location.href.split('/');
+        const protocol = pathArray[0];
+        const host = pathArray[2];
+        return protocol + '//' + host;
     }
 }

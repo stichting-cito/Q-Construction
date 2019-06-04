@@ -2,15 +2,13 @@ import { Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemWrapperComponent } from '../../sharedcomponents/item/item.component';
 import { ItemService } from '../../shared/services/item.service';
-import { ScreeningService } from '../../shared/services/screening.service';
-import { Item, Screening, ItemType, Wishlist } from '../../shared/model/model';
+import { Item, Screening, ItemType } from '../../shared/model/model';
 import { Subscription } from 'rxjs';
 @Component({
-    moduleId: module.id,
     templateUrl: 'edititem.page.component.html',
 })
 export class EditComponent implements OnInit, OnDestroy {
-    @ViewChild(ItemWrapperComponent) itemComponentWrapper: ItemWrapperComponent;
+    @ViewChild(ItemWrapperComponent, { static: false }) itemComponentWrapper: ItemWrapperComponent;
     item: Item;
     disabledItemTypes = new Array<ItemType>();
     screening: Screening;
@@ -22,12 +20,12 @@ export class EditComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router) { }
     ngOnInit() {
         this.routeSubscription = this.route.data.subscribe(data => {
-            this.item = data['item'];
-            this.disabledItemTypes = data['disabledItemTypes'];
-            this.screening = data['screening'];
+            this.item = data.item;
+            this.disabledItemTypes = data.disabledItemTypes;
+            this.screening = data.screening;
         });
         this.parentRouteSubscription = this.route.parent.params.subscribe(params => {
-            this.dashboardstate = params['state'];
+            this.dashboardstate = params.state;
         });
     }
     ngOnDestroy(): void {

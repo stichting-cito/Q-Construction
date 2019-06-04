@@ -20,7 +20,7 @@ export class ItemService {
 
     createNew = (learningObjectiveId: string, wishlistId: string) =>
         this.http.post<Item>(this.endPoint, ({
-            learningObjectiveId: learningObjectiveId,
+            learningObjectiveId,
             wishListId: wishlistId,
             itemStatus: ItemStatus.draft,
             itemType: null

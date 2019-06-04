@@ -4,7 +4,6 @@ import { TipsType } from './../../shared/model/frontendmodel';
 import { Subscription, forkJoin } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-construction-tips',
     templateUrl: 'tips.component.html',
     styles: [`

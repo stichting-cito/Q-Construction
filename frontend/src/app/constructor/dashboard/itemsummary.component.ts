@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Item, ItemSummary, ItemStatus } from '../../shared/model/model';
-import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../shared/services/user.service';
 import { ItemService } from '../../shared/services/item.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +7,6 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-    moduleId: module.id,
     selector: 'app-item-summary',
     templateUrl: 'itemsummary.component.html'
 })
@@ -26,10 +24,10 @@ export class ItemsummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
        this.routeSubscription = this.route.data.subscribe(data => {
-            this.selectedState = +ItemStatus[this.route.parent.snapshot.params['state']];
-            this.listOfItems = data['listofitems'];
+            this.selectedState = +ItemStatus[this.route.parent.snapshot.params.state];
+            this.listOfItems = data.listofitems;
             this.route.params.subscribe(params => {
-                this.routeChanged(+ItemStatus[params['state']]);
+                this.routeChanged(+ItemStatus[params.state]);
             });
         });
     }

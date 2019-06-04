@@ -5,11 +5,10 @@ import { Item } from '../../shared/model/model';
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'viewitem.page.component.html'
 })
 export class ViewComponent implements OnInit, OnDestroy {
-    @ViewChild(ItemWrapperComponent) itemComponent: ItemWrapperComponent;
+    @ViewChild(ItemWrapperComponent, { static: false }) itemComponent: ItemWrapperComponent;
     item = new Item();
     routeSubscription: Subscription;
     parentRouteSubscription: Subscription;
@@ -22,9 +21,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     // We gaan er hier vanuit dat je altijd een item hebt.
     ngOnInit() {
-        this.routeSubscription = this.route.data.subscribe(data => this.item = data['item']);
+        this.routeSubscription = this.route.data.subscribe(data => this.item = data.item);
         this.parentRouteSubscription = this.route.parent.params.subscribe(params => {
-            this.dashboardstate = params['state'];
+            this.dashboardstate = params.state;
         });
     }
 

@@ -7,7 +7,6 @@ import { ItemStatus } from '../../shared/model/model';
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'dashboard.co.page.component.html',
     styles: [`
         .list-group-item {
@@ -35,8 +34,8 @@ export class DashboardCOComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.userType = this.userService.user.userType;
-        this.routeSubscription = this.route.data.subscribe(data => this.itemCountPerStateList = data['itemstatecounts']);
-        this.routeParamsSubscription = this.route.params.subscribe(params => this.selectedState = <ItemStatus>+ItemStatus[params['state']]);
+        this.routeSubscription = this.route.data.subscribe(data => this.itemCountPerStateList = data.itemstatecounts);
+        this.routeParamsSubscription = this.route.params.subscribe(params => this.selectedState = +ItemStatus[params.state] as ItemStatus);
         this.routeQueryParamsSubscription =  this.route.queryParams.subscribe(() => {
             // ngrxstore could help us out here. this is a workaround to force reloading the component.
             this.itemService.getStateCount(this.userService.user.id, this.userService.user.selectedWishlist.id)

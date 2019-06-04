@@ -7,14 +7,13 @@ import { UserAdminDialogComponent } from '../../../sharedcomponents/admin/user.a
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'users.dashboard.component.html'
 })
 
 export class DashboardUsersComponent implements OnInit, OnDestroy {
-    @ViewChild('constuctorModal') constuctorModal: UserAdminDialogComponent;
-    @ViewChild('testExpertModal') testExpertModal: UserAdminDialogComponent;
-    @ViewChild('managerModal') managerModal: UserAdminDialogComponent;
+    @ViewChild('constuctorModal', { static: false }) constuctorModal: UserAdminDialogComponent;
+    @ViewChild('testExpertModal', { static: false }) testExpertModal: UserAdminDialogComponent;
+    @ViewChild('managerModal', { static: false }) managerModal: UserAdminDialogComponent;
 
     dashboardData: DashboardData;
     managers = new Array<User>();
@@ -29,7 +28,7 @@ export class DashboardUsersComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSubscription = this.route.parent.data.subscribe(data => {
-            this.dashboardData = data['data'];
+            this.dashboardData = data.data;
             this.setupUsers();
         });
     }

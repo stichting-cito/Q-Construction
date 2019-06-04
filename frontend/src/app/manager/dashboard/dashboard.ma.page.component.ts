@@ -6,7 +6,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { UserType } from 'src/app/shared/model/model';
 
 @Component({
-    moduleId: module.id,
     styleUrls: ['../../shared/css/sb-admin-2.css'],
     templateUrl: 'dashboard.ma.page.component.html'
 })
@@ -22,7 +21,7 @@ export class DashboardMAComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSubscription = this.route.data.subscribe(data => {
-            this.dashboardData = data['data'];
+            this.dashboardData = data.data;
             this.items = this.userservice.user.userType === UserType.restrictedManager ?
                 [
                     { label: 'Stats', icon: 'fa fa-bar-chart', command: _ => this.selectTabValue(0) },

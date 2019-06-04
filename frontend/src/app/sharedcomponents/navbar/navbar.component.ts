@@ -7,7 +7,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-nav-bar',
     templateUrl: 'navbar.component.html'
 })
@@ -25,6 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     };
     userRetrievedSubscription: Subscription;
     constructor(public userService: UserService, private wishlistService: WishlistService,
+        // tslint:disable-next-line:align
         private translateService: TranslateService, private modalService: BsModalService) { }
 
     ngOnInit() {

@@ -11,7 +11,6 @@ import { AddImageToItemHandler } from './../../shared/helpers/image.handlers';
 import { IImageHandler } from './../../sharedcomponents/editor/quill.interfaces';
 import { debounceTime } from 'rxjs/operators';
 @Component({
-    moduleId: module.id,
     selector: 'app-edit-item',
     styleUrls: ['item.component.scss'],
     encapsulation: ViewEncapsulation.None,
@@ -19,7 +18,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 
 export class ItemWrapperComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
-    @ViewChild('componentType') itemComponent: IItemType;
+    @ViewChild('componentType', { static: false }) itemComponent: IItemType;
     @Input() readonly = false;
     @Input() item: Item;
     @Input() disabledItemTypes = new Array<ItemType>();

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-edit-notes',
     styleUrls: ['notes.scss'],
     template: `<app-quill-editor class="note" [readOnly]="readonly"

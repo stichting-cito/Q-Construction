@@ -6,7 +6,6 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { tap } from 'rxjs/operators';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-admin-usersdialog',
     templateUrl: 'user.admin.component.html',
 })
@@ -22,7 +21,7 @@ export class UserAdminDialogComponent implements DoCheck {
     public selectedUsers = new Array<User>();
     public newUser = new User();
     public options: any;
-    @ViewChild('userModal') userModal: ModalDirective;
+    @ViewChild('userModal', { static: false }) userModal: ModalDirective;
     constructor(private userService: UserService, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }

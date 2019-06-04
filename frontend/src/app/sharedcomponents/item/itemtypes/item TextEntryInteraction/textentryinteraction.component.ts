@@ -6,7 +6,6 @@ import { ItemTypeUtilities } from '../itemUtilities';
 import { IImageHandler } from '../../../../sharedcomponents/editor/quill.interfaces';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-textentryinteraction-template',
     templateUrl: 'textentryinteraction.component.html'
 })

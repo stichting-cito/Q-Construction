@@ -9,10 +9,8 @@ import { CustomFileUploader } from '../../../../shared/helpers/custom.fileupload
 import { IImageHandler } from '../../../../sharedcomponents/editor/quill.interfaces';
 import { ItemTypeUtilities } from '../itemUtilities';
 import { environment } from './../../../../../environments/environment';
-import { map } from 'rxjs/operators';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-hotspotinteraction-template',
     styles: [`
         .my-drop-zone {

@@ -3,21 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ItemWrapperComponent } from '../../sharedcomponents/item/item.component';
 import { ScreeningComponent } from '../../sharedcomponents/screening/screening.component';
-import { ItemService } from '../../shared/services/item.service';
-import { ScreeningService } from '../../shared/services/screening.service';
 import { Item, Screening } from '../../shared/model/model';
 import { Subject, BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItemTestExpert } from '../../shared/model/frontendmodel';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'reviewitem.page.component.html',
 })
 export class ReviewComponent implements OnInit, OnDestroy {
 
-    @ViewChild(ItemWrapperComponent) itemComponent: ItemWrapperComponent;
-    @ViewChild(ScreeningComponent) screeningsComponent: ScreeningComponent;
+    @ViewChild(ItemWrapperComponent, { static: false }) itemComponent: ItemWrapperComponent;
+    @ViewChild(ScreeningComponent, { static: false }) screeningsComponent: ScreeningComponent;
     public item: Item = new Item();
     public screening: Screening;
     public fileButtonText: Subject<string> = new BehaviorSubject('');
@@ -34,8 +31,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.translateService.get('BUTTON_ACCEPT').subscribe(t => this.fileButtonText.next(t));
         this.routesubscription = this.route.data.subscribe(data => {
-            this.item = data['item'];
-            this.screening = data['screening'];
+            this.item = data.item;
+            this.screening = data.screening;
         });
     }
 
@@ -58,7 +55,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     feedbackChanged() {
         if (this.screeningsComponent && this.screeningsComponent.hasFeedback) {
-           this.translateSubscription =  this.translateService.get('BUTTON_TE_SUBMIT').subscribe(t => setTimeout(() => {
+            this.translateSubscription = this.translateService.get('BUTTON_TE_SUBMIT').subscribe(t => setTimeout(() => {
                 this.fileButtonText.next(t);
             }, 0));
         } else {

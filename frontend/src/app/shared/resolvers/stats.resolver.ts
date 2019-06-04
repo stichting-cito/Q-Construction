@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class StatsResolver implements Resolve<StatsPerWishlist> {
     constructor(private wishlistService: WishlistService, private statsService: StatsService,
+        // tslint:disable-next-line:align
         private screeningService: ScreeningService, private userService: UserService) { }
 
     resolve(): Observable<StatsPerWishlist> {
@@ -31,15 +32,15 @@ export class StatsResolver implements Resolve<StatsPerWishlist> {
             const deadlines = wishlist.wishListItems.map((wi1: WishlistItem) => wi1.deadline);
             const dashboardData: DashboardData = {
                 ...stats,
-                wishlist: wishlist,
+                wishlist,
                 deadlines: deadlines
                     .filter((itm: any, i: any) => deadlines.indexOf(itm) === i).map((d: Date) => {
                         const count = wishlist.wishListItems.filter((wi1: WishlistItem) => wi1.deadline === d)
                             .map((wi2: WishlistItem) => wi2.numberOfItems)
                             .reduce((a: number, b: number) => a + b, 0);
-                        return { date: d, count: count };
+                        return { date: d, count };
                     }),
-                users: users,
+                users,
                 screeningsList: screeningslist
             };
             return dashboardData;

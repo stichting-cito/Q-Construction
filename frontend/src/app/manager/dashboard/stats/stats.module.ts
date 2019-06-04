@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DashboardStatsComponent } from './stats.dashboard.component';
-import { DashboardMAModule } from './../dashboard.ma.page.module';
 import { SharedModule } from './../../../shared/shared.module';
 import { DashboardModule } from './../../../sharedcomponents/dashboard/dashboard.module';
 import { ChartModule } from 'primeng/components/chart/chart';

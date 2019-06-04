@@ -7,12 +7,12 @@ export class CustomFileUploader extends FileUploader {
 
     constructor(url: string) {
         super({
-            url: url,
+            url,
             authToken: localStorage.getItem('id_token')
         });
     }
     public upload(fileItem: FileItem): Observable<string> {
-        return Observable.create((observer: Observer<string>) => {
+        return new Observable((observer: Observer<string>) => {
             this.onSuccessItem = (fi: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
                 const attachmentId = JSON.parse(response).value.attachmentId;
                 fi.remove();

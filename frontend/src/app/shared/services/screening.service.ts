@@ -18,7 +18,7 @@ export class ScreeningService {
         .pipe(map((l: ScreeningList) => (l) ? l.items : null))
 
     createNew = (itemId: string) => this.http
-        .post<Screening>(this.endPoint, ({ itemId: itemId, status: ScreeningStatus.draft }) as Screening)
+        .post<Screening>(this.endPoint, ({ itemId, status: ScreeningStatus.draft }) as Screening)
 
     get = (id: string) => this.http.get<Screening>(`${this.endPoint}/${id}`);
 

@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-item-screening',
     styleUrls: ['screening.component.css'],
     templateUrl: 'screening.component.html'
@@ -32,6 +31,7 @@ export class ScreeningComponent implements OnInit, AfterViewChecked, OnDestroy {
     private listSubscription: Subscription;
     private translationSubscription: Subscription;
     constructor(private screeningService: ScreeningService, private formBuilder: FormBuilder,
+        // tslint:disable-next-line:align
         private userService: UserService, private translateService: TranslateService) {
 
     }

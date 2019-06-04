@@ -7,7 +7,6 @@ import { ItemService } from '../../shared/services/item.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-learningobjective',
     templateUrl: 'learningobjective.page.component.html'
 })
@@ -18,16 +17,15 @@ export class LearningObjectiveComponent implements OnInit, OnDestroy {
     routeSubscription: Subscription;
     parentRouteSubscription: Subscription;
 
-    constructor(private router: Router,
-        private itemService: ItemService, private route: ActivatedRoute) { }
+    constructor(private router: Router, private itemService: ItemService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.routeSubscription = this.route.data.subscribe(data => {
-            this.learningObjectiveList = data['learningobjectives'];
+            this.learningObjectiveList = data.learningobjectives;
             this.fillDomains();
         });
         this.parentRouteSubscription = this.route.parent.params.subscribe(params => {
-            this.dashboardstate = params['state'];
+            this.dashboardstate = params.state;
         });
     }
     ngOnDestroy(): void {

@@ -11,7 +11,6 @@ import { ConfirmationService, Confirmation } from 'primeng/components/common/api
 import { environment } from './../../../../environments/environment';
 import { Subscription } from 'rxjs';
 @Component({
-    moduleId: module.id,
     templateUrl: 'setup.dashboard.component.html'
 })
 
@@ -26,13 +25,14 @@ export class DashboardSetupComponent implements OnInit, OnDestroy {
     private routeSubscription: Subscription;
     public dashboardData: DashboardData;
     constructor(private translateService: TranslateService, private confirmationService: ConfirmationService, private route: ActivatedRoute,
+        // tslint:disable-next-line:align
         private screeninglistService: ScreeninglistService, private wishlistService: WishlistService, private userService: UserService) {
     }
 
     ngOnInit() {
         if (this.userService.user.selectedWishlist) {
             this.routeSubscription = this.route.parent.data.subscribe(data => {
-                this.dashboardData = data['data'];
+                this.dashboardData = data.data;
                 this.itemsCreated = this.dashboardData.wishlist.wishListItems.filter(w => w.numberOfItems !== w.todo).length > 0;
                 this.setScreeningListInfo(this.dashboardData.wishlist.screeningsListId);
                 const wishlistUploadOptions: FileUploaderOptions = {

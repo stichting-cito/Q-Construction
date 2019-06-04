@@ -31,11 +31,10 @@ export class AddImageToItemHandler implements IImageHandler {
 
 export class ImageToBase64Handler implements IImageHandler {
     handle(file: File): Observable<string> {
-        return Observable.create((observer: Observer<string>) => {
+        return new Observable((observer: Observer<string>) => {
             try {
                 const reader = new FileReader();
-                reader.onload = (function (theFile) {
-                    const fileName = theFile.name;
+                reader.onload = ((theFile) => {
                     return (e: any) => {
                         observer.next(e.target.result);
                         observer.complete();

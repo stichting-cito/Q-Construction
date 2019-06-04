@@ -32,7 +32,6 @@ export const EDITOR_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    moduleId: module.id,
     selector: 'app-quill-editor',
     templateUrl: 'quill.editor.html',
     styleUrls: ['quill.editor.scss'],
@@ -43,8 +42,8 @@ export class QuillEditorComponent implements AfterViewInit, OnInit, ControlValue
     @Output() textChanged: EventEmitter<any> = new EventEmitter();
     @Output() selectionChanged: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(HeaderComponent) toolbar: any;
-    @ViewChild('imageModal') public imageModal: ModalDirective;
+    @ContentChild(HeaderComponent, { static: false }) toolbar: any;
+    @ViewChild('imageModal', { static: false }) public imageModal: ModalDirective;
 
     @Input() showToolbar = true;
     @Input() toggleToolbar = false;
@@ -88,10 +87,10 @@ export class QuillEditorComponent implements AfterViewInit, OnInit, ControlValue
         container.appendChild(fileInput);
         fileInput.click();
     }).bind(this);
-    onModelChange: Function = () => {
+    onModelChange = (html?: string): any => {
         //
     }
-    onModelTouched: Function = () => {
+    onModelTouched = (): any => {
         //
     }
     constructor(protected el: ElementRef) { }
@@ -154,8 +153,8 @@ export class QuillEditorComponent implements AfterViewInit, OnInit, ControlValue
             this.textChanged.emit({
                 htmlValue: html,
                 textValue: text,
-                delta: delta,
-                source: source
+                delta,
+                source
             });
 
             this.onModelChange(html);
@@ -163,9 +162,9 @@ export class QuillEditorComponent implements AfterViewInit, OnInit, ControlValue
         this.quill.on('selection-change', (range: any, oldRange: any, source: any) => {
             this.hideToolbar = (!this.showToolbar || (this.toggleToolbar && (range === null)));
             this.selectionChanged.emit({
-                range: range,
-                oldRange: oldRange,
-                source: source
+                range,
+                oldRange,
+                source
             });
         });
         const toolbar = this.quill.getModule('toolbar');
@@ -187,7 +186,7 @@ export class QuillEditorComponent implements AfterViewInit, OnInit, ControlValue
             this.systemPasting = false;
         }
     }
-    registerOnChange = (fn: Function) => this.onModelChange = fn;
-    registerOnTouched = (fn: Function) => this.onModelTouched = fn;
+    registerOnChange = (fn: any) => this.onModelChange = fn;
+    registerOnTouched = (fn: any) => this.onModelTouched = fn;
 }
 

@@ -7,7 +7,6 @@ import { HotSpotInteractionComponent } from '../item HotSpotInteraction/hotspoti
 import { IImageHandler } from '../../../../sharedcomponents/editor/quill.interfaces';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-graphicgapmatchinteraction-template',
     templateUrl: '../../description.template.html'
 })
