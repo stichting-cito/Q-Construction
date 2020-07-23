@@ -23,7 +23,7 @@
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
     "angular-sortablejs": "2.6.0",
-    "auth0-js": "9.9.1",
+    "auth0-js": "9.13.2",
     "auth0-lock": "11.13.1",
     "bootflat": "2.0.4",
     "bootstrap": "^3.4.0",
