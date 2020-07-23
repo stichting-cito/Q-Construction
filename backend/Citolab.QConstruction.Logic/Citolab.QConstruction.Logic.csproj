@@ -15,7 +15,7 @@
     <EmbeddedResource Include="Data\SCREENINGS_LIST_NL.csv" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Auth0.AuthenticationApi" Version="5.11.0" />
+    <PackageReference Include="Auth0.AuthenticationApi" Version="6.5.3" />
     <PackageReference Include="Auth0.ManagementApi" Version="5.11.0" />
     <PackageReference Include="Citolab.Repository.Mongo" Version="2018.12.7.1" />
     <PackageReference Include="CsvHelper" Version="12.1.1" />
